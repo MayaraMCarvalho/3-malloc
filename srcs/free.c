@@ -6,7 +6,15 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 20:23:28 by macarval          #+#    #+#             */
-/*   Updated: 2025/10/17 20:23:29 by macarval         ###   ########.fr       */
+/*   Updated: 2025/10/21 11:48:16 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "malloc.h"
+
+void	free(void *ptr)
+{
+	if (ptr) {}
+		// dar free
+	// Implementação futura
+}

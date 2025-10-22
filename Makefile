@@ -6,7 +6,7 @@
 #    By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/19 16:33:22 by macarval          #+#    #+#              #
-#    Updated: 2025/10/17 20:48:42 by macarval         ###   ########.fr        #
+#    Updated: 2025/10/21 14:11:58 by macarval         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ ifeq ($(HOSTTYPE),)
 	HOSTTYPE := $(shell uname -m)_$(shell uname -s)
 endif
 
-NAME		= libft_malloc_$(HOSTTYPE).so
+NAME		= $(OBJS_PATH)/libft_malloc_$(HOSTTYPE).so
 
 # --- Sources and Objects ---
 SRCS		= malloc.c free.c realloc.c show_alloc_mem.c utils.c
@@ -38,8 +38,8 @@ CFLAGS		= -g3 -Wall -Wextra -Werror -fPIC
 LDFLAGS		= -L. -lft_malloc
 
 # --- Test Program Configuration ---
-TEST_SRCS	= test_malloc.c
-TEST		= test_malloc
+TEST_SRCS	= main.c
+TEST		= $(OBJS_PATH)/test_malloc
 
 # Regular colors
 RED			= \033[0;31m
@@ -66,14 +66,16 @@ BWHITE		= \033[1;37m
 all: 		$(NAME)
 
 $(NAME):	$(LIBFT) $(OBJS_PATH) $(OBJS)
-			@echo "\n$(YELLOW)Creating dynamic library $(NAME)...$(RESET)\n"
+
+			@echo "\n$(YELLOW)Creating dynamic library $(NAME)...$(RESET)"
 			@$(CC) $(CFLAGS) -shared -o $(NAME) $(OBJS) $(LIBFT)
 
-			@echo "$(YELLOW)Creating a symbolic link $(SYMLINK)...$(RESET)\n"
+			@echo "$(YELLOW)Creating a symbolic link $(SYMLINK)...$(RESET)"
 			@ln -sf $(NAME) $(SYMLINK)
-			@echo "$(GREEN)Library $(NAME) and link $(SYMLINK) created!$(RESET)\n"
+			@echo "$(GREEN)Library $(NAME) and link $(SYMLINK) created!$(RESET)"
 
 $(LIBFT):
+			clear
 			@make -sC $(LIBFT_PATH)
 
 $(OBJS_PATH):
@@ -86,29 +88,27 @@ $(OBJS_PATH)/%.o: %.c
 
 # --- Clean Rules ---
 clean:
-			@make -sC $(LIBFT_PATH) clean
+			@make -sC $(LIBFT_PATH) fclean
 			@rm -rf $(OBJS_PATH)
-			@echo "$(CYAN)$(NAME): $(GREEN)Clean object directory!$(RESET)"
+			@echo "$(CYAN)malloc: $(GREEN)Clean object directory!$(RESET)"
 
 fclean:		clean
-			@make -sC $(LIBFT_PATH) fclean
-			@rm -f $(NAME)
 			@rm -f $(SYMLINK)
 			@rm -f $(TEST)
-			@echo "$(CYAN)$(NAME): $(GREEN)Complete cleaning!$(RESET)"
+			@echo "$(CYAN)malloc: $(GREEN)Complete cleaning!$(RESET)"
 
 re:			fclean all
 
 # --- Test Rules ---
-$(TEST):	$(TEST_SRCS)
+$(TEST):	$(OBJS_PATH) $(TEST_SRCS)
 			@echo "$(YELLOW)Compiling test program $(TEST)...$(RESET)"
 			@$(CC) $(CFLAGS) $(INCLUDE) $(TEST_SRCS) -o $(TEST)
 
-test:		all $(TEST)
+test:		re $(TEST)
 
 run:		test
 			@echo "$(CYAN)Executing $(TEST) with $(SYMLINK)...$(RESET)"
-			@LD_PRELOAD=./$(SYMLINK) ./$(TEST)
+			@LD_PRELOAD=./$(SYMLINK) ./$(TEST) || true
 			@echo "$(CYAN)Execution complete.$(RESET)"
 
 git:
