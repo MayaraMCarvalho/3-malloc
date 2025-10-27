@@ -16,7 +16,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-#include "../libs/libft/includes/libft.h"
+#include "libft.h"
 #include "colors.h"
 
 // free.c

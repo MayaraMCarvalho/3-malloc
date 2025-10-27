@@ -45,7 +45,7 @@ OBJS_PATH	= obj
 
 INCLUDE		=-I./includes
 
-FLAGS		= -Wall -Wextra -Werror
+FLAGS		= -Wall -Wextra -Werror -g3
 CC			= gcc
 
 #colors
@@ -69,8 +69,8 @@ $(OBJS_PATH):
 
 $(OBJS_PATH)/%.o: %.c
 			@$(CC) $(FLAGS) $(INCLUDE) -c $< -o $@
-#			@echo -n "$(YELLOW)Generating $(CYAN)$(NAME) $(YELLOW)objects..." $@
-#			@echo -n "\n"
+# 			@echo -n "$(YELLOW)Generating $(CYAN)$(NAME) $(YELLOW)objects..." $@
+# 			@echo -n "\n"
 
 clean:
 			@rm -fr $(OBJS_PATH)

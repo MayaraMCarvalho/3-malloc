@@ -60,9 +60,7 @@ BPURPLE		= \033[1;35m
 BCYAN		= \033[1;36m
 BWHITE		= \033[1;37m
 
-
 # --- Rules ---
-
 all: 		$(NAME)
 
 $(NAME):	$(LIBFT) $(OBJS_PATH) $(OBJS)
@@ -100,9 +98,9 @@ fclean:		clean
 re:			fclean all
 
 # --- Test Rules ---
-$(TEST):	$(OBJS_PATH) $(TEST_SRCS)
+$(TEST):	$(OBJS_PATH) $(TEST_SRCS) $(LIBFT)
 			@echo "$(YELLOW)Compiling test program $(TEST)...$(RESET)"
-			@$(CC) $(CFLAGS) $(INCLUDE) $(TEST_SRCS) -o $(TEST)
+			@$(CC) $(CFLAGS) $(INCLUDE) $(TEST_SRCS) $(LIBFT) -o $(TEST)
 
 test:		re $(TEST)
 
