@@ -14,14 +14,16 @@
 
 int main(void)
 {
-	ft_printf("\n%sMalloc rodando%s\n\n", BPURPLE, RESET);
+	welcome();
 
 	char *	str = malloc(10 * sizeof(char));
 	if (!str)
 	{
-		ft_printf("%sMalloc falhou%s\n\n", BRED, RESET);
-		return 1;
+		// ft_printf("%sMalloc falhou%s\n", BRED, RESET);
+		// return 1;
 	}
+
+	goodbye();
 
 	return 0;
 }

@@ -20,7 +20,7 @@ endif
 NAME		= $(OBJS_PATH)/libft_malloc_$(HOSTTYPE).so
 
 # --- Sources and Objects ---
-SRCS		= malloc.c free.c realloc.c show_alloc_mem.c utils.c
+SRCS		= free.c malloc.c realloc.c show_alloc_mem.c utils.c
 
 VPATH		= srcs/
 OBJS_PATH	= obj
@@ -38,7 +38,7 @@ CFLAGS		= -g3 -Wall -Wextra -Werror -fPIC
 LDFLAGS		= -L. -lft_malloc
 
 # --- Test Program Configuration ---
-TEST_SRCS	= main.c
+TEST_SRCS	= test/main.c test/info.c
 TEST		= $(OBJS_PATH)/test_malloc
 
 # Regular colors
@@ -105,9 +105,7 @@ $(TEST):	$(OBJS_PATH) $(TEST_SRCS) $(LIBFT)
 test:		re $(TEST)
 
 run:		test
-			@echo "$(CYAN)Executing $(TEST) with $(SYMLINK)...$(RESET)"
-			@LD_PRELOAD=./$(SYMLINK) ./$(TEST) || true
-			@echo "$(CYAN)Execution complete.$(RESET)"
+			@LD_PRELOAD=./$(SYMLINK) ./$(TEST) || true	
 
 git:
 			clear

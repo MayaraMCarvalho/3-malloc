@@ -13,11 +13,11 @@
 #ifndef MALLOC_H
 # define MALLOC_H
 
-#include <stdlib.h>
-#include <unistd.h>
+# include <stdlib.h>
+# include <unistd.h>
 
-#include "libft.h"
-#include "colors.h"
+# include "libft.h"
+# include "colors.h"
 
 // free.c
 void	free(void *ptr);
@@ -32,5 +32,10 @@ void	*realloc(void *ptr, size_t size);
 void	show_alloc_mem(void);
 
 // utils.c
+
+// test/info.c
+void    welcome(void);
+void    goodbye(void);
+
 
 #endif
