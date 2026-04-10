@@ -12,24 +12,24 @@
 
 #include "malloc.h"
 
-void    welcome(void)
+void	welcome(void)
 {
-    ft_printf("%s", BPURPLE);
-    ft_printf("\n╔════════════════════════════════════════════════════╗\n");
-    ft_printf("║                                                    ║\n");
-    ft_printf("║         🚀  Bem-vindo ao Projeto Malloc! 🚀        ║\n");
-    ft_printf("║                                                    ║\n");
-    ft_printf("╚════════════════════════════════════════════════════╝\n");
-    ft_printf("%s", RESET);
+	ft_printf("%s", BPURPLE);
+	ft_printf("\n╔════════════════════════════════════════════════════╗\n");
+	ft_printf("║                                                    ║\n");
+	ft_printf("║         🚀  Bem-vindo ao Projeto Malloc! 🚀        ║\n");
+	ft_printf("║                                                    ║\n");
+	ft_printf("╚════════════════════════════════════════════════════╝\n");
+	ft_printf("%s", RESET);
 }
 
-void    goodbye(void)
+void	goodbye(void)
 {
-    ft_printf("%s", BCYAN);
-    ft_printf("\n╔════════════════════════════════════════════════════╗\n");
-    ft_printf("║                                                    ║\n");
-    ft_printf("║       ✅ Execução finalizada com sucesso!          ║\n");
-    ft_printf("║                                                    ║\n");
-    ft_printf("╚════════════════════════════════════════════════════╝\n");
-    ft_printf("%s", RESET);
+	ft_printf("%s", BCYAN);
+	ft_printf("\n╔════════════════════════════════════════════════════╗\n");
+	ft_printf("║                                                    ║\n");
+	ft_printf("║       ✅ Execução finalizada com sucesso!          ║\n");
+	ft_printf("║                                                    ║\n");
+	ft_printf("╚════════════════════════════════════════════════════╝\n");
+	ft_printf("%s", RESET);
 }
