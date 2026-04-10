@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 20:23:20 by macarval          #+#    #+#             */
-/*   Updated: 2025/10/21 11:43:06 by macarval         ###   ########.fr       */
+/*   Updated: 2026/04/10 19:17:50 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,4 +15,17 @@
 void	show_alloc_mem(void)
 {
 	// Implementação futura
+
 }
+
+// A visualização será formatada por endereços crescentes, como:
+
+	// TINY : 0xA0000
+	// 0xA0020 - 0xA004A : 42 bytes
+	// 0xA006A - 0xA00BE : 84 bytes
+	// SMALL : 0xAD000
+	// 0xAD020 - 0xADEAD : 3725 bytes
+	// LARGE : 0xB0000
+	// 0xB0020 - 0xBBEEF : 48847 bytes
+	// Total : 52698 bytes
+

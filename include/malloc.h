@@ -6,18 +6,18 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 12:05:57 by macarval          #+#    #+#             */
-/*   Updated: 2025/10/21 14:38:59 by macarval         ###   ########.fr       */
+/*   Updated: 2026/04/10 18:42:08 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MALLOC_H
 # define MALLOC_H
 
-# include <stdlib.h>
-# include <unistd.h>
+#include <stdlib.h>
+#include <pthread.h>
 
-# include "libft.h"
-# include "colors.h"
+#include "libft.h"
+#include "colors.h"
 
 // free.c
 void	free(void *ptr);
