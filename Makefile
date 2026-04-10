@@ -6,7 +6,7 @@
 #    By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/19 16:33:22 by macarval          #+#    #+#              #
-#    Updated: 2026/04/10 19:26:03 by macarval         ###   ########.fr        #
+#    Updated: 2026/04/10 19:34:17 by macarval         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -107,6 +107,7 @@ $(COMP):	$(COMP_SRCS) | $(OBJS_PATH)
 comp:		$(NAME) $(COMP)
 
 run:		comp
+			clear
 			@echo "$(CYAN)Executing $(COMP) with $(SYMLINK)...$(RESET)"
 			@LD_PRELOAD=./$(SYMLINK) ./$(COMP) || true
 			@echo "$(CYAN)Execution complete.$(RESET)"

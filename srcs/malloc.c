@@ -14,6 +14,8 @@
 
 void	*malloc(size_t size)
 {
+	ft_printf("\n%s--- NOSSO MALLOC FOI CHAMADO! ---%s\n\n", BGREEN, RESET);
+
 	if (size) {}
 		//fazer malloc
 	return NULL;

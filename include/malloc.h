@@ -16,6 +16,7 @@
 #include <stdlib.h>
 #include <pthread.h>
 
+#include "structs_malloc.h"
 #include "libft.h"
 #include "colors.h"
 
