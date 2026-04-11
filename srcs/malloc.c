@@ -26,8 +26,6 @@ void	*malloc(size_t size)
 	if (size <= 0)
 		return (NULL);
 
-	// #include <unistd.h>
-	// write(1, "Chegou na verificacao do bloco 2\n", 33);
 	aligned_size = align_size(size);
 
 	return (allocate_block(aligned_size));
