@@ -13,30 +13,13 @@
 #ifndef MALLOC_H
 # define MALLOC_H
 
-#include <stdlib.h>
-#include <pthread.h>
+# include <stdlib.h>
+# include <pthread.h>
 
-#include "structs_malloc.h"
-#include "libft.h"
-#include "colors.h"
-
-// free.c
+// Prototypes
 void	free(void *ptr);
-
-// malloc.c
 void	*malloc(size_t size);
-
-// relloc.c
 void	*realloc(void *ptr, size_t size);
-
-// show_alloc_mem.c
 void	show_alloc_mem(void);
-
-// utils.c
-
-// test/info.c
-void    welcome(void);
-void    goodbye(void);
-
 
 #endif

@@ -6,7 +6,7 @@
 #    By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/19 16:33:22 by macarval          #+#    #+#              #
-#    Updated: 2026/04/10 19:34:17 by macarval         ###   ########.fr        #
+#    Updated: 2026/04/11 16:35:42 by macarval         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ NAME		= obj/libft_malloc_$(HOSTTYPE).so
 # --- Sources and Objects ---
 SRCS		= malloc.c free.c realloc.c show_alloc_mem.c utils.c
 
-VPATH		= srcs/
+VPATH		= srcs/:srcs/utils/
 OBJS_PATH	= obj
 OBJS 		= $(addprefix $(OBJS_PATH)/, $(SRCS:.c=.o))
 
@@ -30,16 +30,16 @@ OBJS 		= $(addprefix $(OBJS_PATH)/, $(SRCS:.c=.o))
 LIBFT_PATH	= libft
 LIBFT_INC	= $(LIBFT_PATH)/includes
 LIBFT		= $(LIBFT_PATH)/libft.a
-INCLUDE		= -I./include -I$(LIBFT_INC)
+INCLUDE		= -I./include -I$(LIBFT_INC) -I./srcs/utils
 
 # --- Compiler and Flags ---
 CC			= gcc
-CFLAGS		= -g3 -Wall -Wextra -Werror -fPIC
+CFLAGS		= -g3 -Wall -Wextra -Werror -fPIC -fvisibility=hidden
 LDFLAGS		= -L. -lft_malloc
 
 # --- Test Program Configuration ---
 COMP_PATH	= test
-COMP_SRCS	= $(COMP_PATH)/main.c $(COMP_PATH)/info.c
+COMP_SRCS	= $(COMP_PATH)/main.c
 COMP		= $(OBJS_PATH)/test_malloc
 
 # Regular colors

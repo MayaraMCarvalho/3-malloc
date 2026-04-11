@@ -10,13 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "malloc.h"
+#include "utils_malloc.h"
 
+t_malloc g_malloc = {NULL, NULL, NULL, PTHREAD_MUTEX_INITIALIZER};
+
+/// @brief Allocates a block of memory of the specified size, first trying to
+/// find a free block in the appropriate zone, and if none is found, requesting
+/// new space from the system.
+/// @param size The requested original size.
+/// @return A pointer to the allocated block, or NULL if allocation fails.
 void	*malloc(size_t size)
 {
-	ft_printf("\n%s--- NOSSO MALLOC FOI CHAMADO! ---%s\n\n", BGREEN, RESET);
+	size_t	aligned_size;
 
-	if (size) {}
-		//fazer malloc
-	return NULL;
+	if (size <= 0)
+		return (NULL);
+
+	aligned_size = align_size(size);
+
+	return (allocate_block(aligned_size));
 }

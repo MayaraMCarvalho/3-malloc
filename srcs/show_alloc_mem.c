@@ -6,11 +6,11 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 20:23:20 by macarval          #+#    #+#             */
-/*   Updated: 2026/04/10 19:17:50 by macarval         ###   ########.fr       */
+/*   Updated: 2026/04/11 14:48:58 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "malloc.h"
+#include "utils_malloc.h"
 
 void	show_alloc_mem(void)
 {
