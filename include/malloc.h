@@ -16,10 +16,12 @@
 # include <stdlib.h>
 # include <pthread.h>
 
+# define EXPORT __attribute__((visibility("default")))
+
 // Prototypes
-void	free(void *ptr);
-void	*malloc(size_t size);
-void	*realloc(void *ptr, size_t size);
-void	show_alloc_mem(void);
+EXPORT void	free(void *ptr);
+EXPORT void	*malloc(size_t size);
+EXPORT void	*realloc(void *ptr, size_t size);
+EXPORT void	show_alloc_mem(void);
 
 #endif

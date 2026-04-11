@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 14:51:50 by macarval          #+#    #+#             */
-/*   Updated: 2026/04/11 16:15:42 by macarval         ###   ########.fr       */
+/*   Updated: 2026/04/11 16:58:23 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ size_t	align_size(size_t size)
 {
 	size_t	alignment;
 
-	write(1, "Chegou na verificacao do bloco3\n", 32);
-	exit (0);
 	alignment = sizeof(size_t);
 	if (size % alignment == 0)
 		return (size);
@@ -75,6 +73,37 @@ t_block	*find_free_block(size_t size)
 	}
 
 	return (NULL);
+}
+
+/// @brief Requests a new block of memory from the system by creating a new zone
+/// for tiny or small sizes, or a large block for larger sizes.
+/// @param size The requested original size.
+/// @return A pointer to the newly allocated block, or NULL if allocation fails.
+t_block	*request_space(size_t size)
+{
+	t_zone	*zone;
+	t_block	*block;
+
+	if (size <= TINY_MAX_SIZE)
+		zone = create_zone(TINY_ZONE, &g_malloc.tiny);
+	else if (size <= SMALL_MAX_SIZE)
+		zone = create_zone(SMALL_ZONE, &g_malloc.small);
+	else
+		return (create_large_block(size));
+
+	if (!zone)
+		return (NULL);
+
+	block = zone->blocks;
+	// while (block->next)
+	// 	block = block->next;
+
+	// block->next = create_block(zone, size);
+	// if (!block->next)
+	// 	return (NULL);
+
+	// return (block->next);
+	return (block);
 }
 
 t_block	*create_block(t_zone *zone, size_t size)

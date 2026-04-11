@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 14:51:57 by macarval          #+#    #+#             */
-/*   Updated: 2026/04/11 16:28:14 by macarval         ###   ########.fr       */
+/*   Updated: 2026/04/11 16:58:53 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,41 +35,11 @@ t_block	*get_zone(size_t size)
 	return (g_malloc.large);
 }
 
-/// @brief Requests a new block of memory from the system by creating a new zone
-/// for tiny or small sizes, or a large block for larger sizes.
-/// @param size The requested original size.
-/// @return A pointer to the newly allocated block, or NULL if allocation fails.
-t_block	*request_space(size_t size)
-{
-	t_zone	*zone;
-	t_block	*block;
-
-	if (size <= TINY_MAX_SIZE)
-		zone = create_zone(TINY_ZONE);
-	else if (size <= SMALL_MAX_SIZE)
-		zone = create_zone(SMALL_ZONE);
-	else
-		return (create_large_block(size));
-
-	if (!zone)
-		return (NULL);
-
-	block = zone->blocks;
-	while (block->next)
-		block = block->next;
-
-	block->next = create_block(zone, size);
-	if (!block->next)
-		return (NULL);
-
-	return (block->next);
-}
-
 /// @brief Creates a new memory zone of the specified size and initializes
 /// its metadata.
 /// @param zone_size The total size of the zone to be created.
 /// @return A pointer to the newly created zone, or NULL if creation fails.
-t_zone	*create_zone(size_t zone_size)
+t_zone	*create_zone(size_t zone_size, t_zone **head)
 {
 	t_zone	*zone;
 
@@ -89,23 +59,22 @@ t_zone	*create_zone(size_t zone_size)
 		return (NULL);
 	}
 
-	add_zone(zone, zone_size);
+	add_zone(zone, head);
 	return (zone);
 }
 
-void	add_zone(t_zone *zone, size_t zone_size)
+void	add_zone(t_zone *zone, t_zone **head)
 {
 	t_zone	*current;
-	t_zone	**head;
 
-	if (zone_size == TINY_ZONE)
-		head = &g_malloc.tiny;
-
-	if (zone_size == SMALL_ZONE)
-		head = g_malloc.small;
+	if (!head)
+		return ;
 
 	if (!*head)
-		return (*head = zone);
+	{
+		*head = zone;
+		return ;
+	}
 
 	current = *head;
 	while (current->next)

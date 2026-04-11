@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 20:30:01 by macarval          #+#    #+#             */
-/*   Updated: 2026/04/11 16:08:40 by macarval         ###   ########.fr       */
+/*   Updated: 2026/04/11 17:21:59 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,14 @@
 #include "malloc.h"
 #include "colors.h"
 
+void	welcome(void);
+void	goodbye(void);
+
 int	main(void)
 {
 	char	*str;
+
+	welcome();
 
 	str = malloc(10 * sizeof(char));
 	if (!str)
@@ -26,5 +31,6 @@ int	main(void)
 		return (1);
 	}
 
+	goodbye();
 	return (0);
 }
