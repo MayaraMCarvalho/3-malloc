@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 14:51:50 by macarval          #+#    #+#             */
-/*   Updated: 2026/04/11 17:48:26 by macarval         ###   ########.fr       */
+/*   Updated: 2026/04/11 18:54:44 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 /// @brief Aligns the size to the next multiple of sizeof(size_t).
 /// @param size The requested original size.
 /// @return The aligned size.
-/// @example If size is 10 and sizeof(size_t) is 8, the function will return 16.
 size_t	align_size(size_t size)
 {
 	size_t	alignment;
@@ -62,7 +61,6 @@ void	*allocate_block(size_t size)
 t_block	*find_free_block(size_t size)
 {
 	t_block	*current;
-	int		type_zone;
 
 	current = get_zone(size);
 	while (current)
@@ -96,7 +94,7 @@ t_block	*request_space(size_t size)
 
 	block = zone->blocks;
 
-	return (block);
+	return ((void *)(block + 1));
 }
 
 t_block	*create_block(t_zone *zone, size_t size)

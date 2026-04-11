@@ -14,6 +14,7 @@
 # define MALLOC_H
 
 # include <stdlib.h>
+#include <sys/mman.h> 
 # include <pthread.h>
 
 # define EXPORT __attribute__((visibility("default")))

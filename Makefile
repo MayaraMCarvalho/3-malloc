@@ -6,7 +6,7 @@
 #    By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/19 16:33:22 by macarval          #+#    #+#              #
-#    Updated: 2026/04/11 17:41:33 by macarval         ###   ########.fr        #
+#    Updated: 2026/04/11 18:25:45 by macarval         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ endif
 NAME		= obj/libft_malloc_$(HOSTTYPE).so
 
 # --- Sources and Objects ---
-SRCS		= malloc.c free.c realloc.c show_alloc_mem.c utils.c
+SRCS		= malloc.c free.c realloc.c show_alloc_mem.c \
+			utils.c block.c zone.c
 
 VPATH		= srcs/:srcs/utils/
 OBJS_PATH	= obj
@@ -36,7 +37,7 @@ INCLUDE		= -I./include -I$(LIBFT_INC) -I./srcs/utils
 # --- Compiler and Flags ---
 CC			= gcc
 CFLAGS		= -g3 -Wall -Wextra -Werror -fPIC -fvisibility=hidden
-LDFLAGS		= -L. -lft_malloc
+LDFLAGS		= -L. -lft_malloc -Wl,-rpath,$(shell pwd)
 
 # --- Test Program Configuration ---
 COMP_PATH	= test
@@ -101,9 +102,9 @@ fclean:		clean
 re:			fclean all
 
 # --- Compile Rules ---
-$(COMP):	$(COMP_SRCS) | $(OBJS_PATH)
+$(COMP):	$(COMP_SRCS) $(NAME) | $(OBJS_PATH)
 			@echo "$(YELLOW)Compiling test program $(COMP)...$(RESET)"
-			@$(CC) $(CFLAGS) $(INCLUDE) $(COMP_SRCS) $(LIBFT) -o $(COMP)
+			@$(CC) $(CFLAGS) $(INCLUDE) $(COMP_SRCS) $(LIBFT) $(LDFLAGS) -o $(COMP)
 
 comp:		$(NAME) $(COMP)
 

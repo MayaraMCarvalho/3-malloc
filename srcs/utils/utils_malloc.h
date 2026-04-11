@@ -69,7 +69,6 @@ t_block	*create_large_block(size_t size);
 void	add_zone(t_zone *zone, t_zone **head);
 
 // utils.c
-int		initialize_malloc(void);
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 14:51:57 by macarval          #+#    #+#             */
-/*   Updated: 2026/04/11 16:58:53 by macarval         ###   ########.fr       */
+/*   Updated: 2026/04/11 17:55:18 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,21 @@ t_zone	*create_zone(size_t zone_size, t_zone **head)
 	zone->total_size = zone_size;
 	zone->next = NULL;
 
-	zone->blocks = create_block(zone, zone_size - sizeof(t_zone));
-	if (!zone->blocks)
-	{
-		munmap(zone, zone_size);
-		return (NULL);
-	}
+	zone->blocks = (t_block *)(zone + 1);
+
+    // O tamanho disponível para o primeiro bloco é:
+    // Total da zona - tamanho da struct zone - tamanho da struct block
+    zone->blocks->size = zone_size - sizeof(t_zone) - sizeof(t_block);
+    zone->blocks->status = FREE;
+    zone->blocks->next = NULL;
+    zone->blocks->prev = NULL;
+
+	// zone->blocks = create_block(zone, zone_size - sizeof(t_zone));
+	// if (!zone->blocks)
+	// {
+	// 	munmap(zone, zone_size);
+	// 	return (NULL);
+	// }
 
 	add_zone(zone, head);
 	return (zone);
