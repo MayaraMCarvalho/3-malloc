@@ -6,7 +6,7 @@
 #    By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/19 16:33:22 by macarval          #+#    #+#              #
-#    Updated: 2026/04/11 17:23:04 by macarval         ###   ########.fr        #
+#    Updated: 2026/04/11 17:41:33 by macarval         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRCS		= malloc.c free.c realloc.c show_alloc_mem.c utils.c
 VPATH		= srcs/:srcs/utils/
 OBJS_PATH	= obj
 OBJS 		= $(addprefix $(OBJS_PATH)/, $(SRCS:.c=.o))
+HEADERS		= include/malloc.h srcs/utils/utils_malloc.h srcs/utils/colors.h
 
 # --- Libft Configuration ---
 LIBFT_PATH	= libft
@@ -82,7 +83,7 @@ $(OBJS_PATH):
 			clear
 			@mkdir -p $(OBJS_PATH)
 
-$(OBJS_PATH)/%.o: %.c | $(OBJS_PATH)
+$(OBJS_PATH)/%.o: %.c $(HEADERS) | $(OBJS_PATH)
 			@echo -n "$(YELLOW)Compiling $<...$(RESET)"
 			@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 			@echo " $(GREEN)✔$(RESET)"

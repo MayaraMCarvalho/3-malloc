@@ -23,7 +23,7 @@ void	*malloc(size_t size)
 {
 	size_t	aligned_size;
 
-	if (size <= 0)
+	if (size == 0)
 		return (NULL);
 
 	aligned_size = align_size(size);

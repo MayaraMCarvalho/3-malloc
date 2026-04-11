@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 14:51:50 by macarval          #+#    #+#             */
-/*   Updated: 2026/04/11 17:35:41 by macarval         ###   ########.fr       */
+/*   Updated: 2026/04/11 17:48:26 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,14 +95,7 @@ t_block	*request_space(size_t size)
 		return (NULL);
 
 	block = zone->blocks;
-	// while (block->next)
-	// 	block = block->next;
 
-	// block->next = create_block(zone, size);
-	// if (!block->next)
-	// 	return (NULL);
-
-	// return (block->next);
 	return (block);
 }
 
@@ -111,8 +104,6 @@ t_block	*create_block(t_zone *zone, size_t size)
 	t_block	*block;
 
 	block = (t_block *)((char *)zone + sizeof(t_zone));
-	while (block->next)
-		block = block->next;
 
 	block->size = size;
 	block->status = FREE;
