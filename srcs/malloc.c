@@ -27,6 +27,5 @@ void	*malloc(size_t size)
 		return (NULL);
 
 	aligned_size = align_size(size);
-
 	return (allocate_block(aligned_size));
 }

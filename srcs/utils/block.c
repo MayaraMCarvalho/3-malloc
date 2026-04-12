@@ -6,25 +6,11 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 14:51:50 by macarval          #+#    #+#             */
-/*   Updated: 2026/04/11 18:54:44 by macarval         ###   ########.fr       */
+/*   Updated: 2026/04/11 21:40:10 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils_malloc.h"
-
-/// @brief Aligns the size to the next multiple of sizeof(size_t).
-/// @param size The requested original size.
-/// @return The aligned size.
-size_t	align_size(size_t size)
-{
-	size_t	alignment;
-
-	alignment = sizeof(size_t);
-	if (size % alignment == 0)
-		return (size);
-
-	return (((size / alignment) + 1) * alignment);
-}
 
 /// @brief Allocates a block of memory of the specified size, first trying to
 /// find a free block in the appropriate zone, and if none is found, requesting
@@ -33,24 +19,20 @@ size_t	align_size(size_t size)
 /// @return A pointer to the allocated block, or NULL if allocation fails.
 void	*allocate_block(size_t size)
 {
-	t_block	*current;
-	t_block	*new_block;
+	t_block	*block;
 
-	current = find_free_block(size);
-	if (current)
+	block = find_free_block(size);
+	if (!block)
 	{
-		current->status = ALLOCATED;
-		return (current + 1);
+		block = request_space(size);
+		if (!block)
+			return (NULL);
 	}
 
-	new_block = request_space(size);
-	if (!new_block)
-		return (NULL);
+	split_block(block, size);
+	block->status = ALLOCATED;
 
-	new_block->size = size;
-	new_block->status = ALLOCATED;
-
-	return (new_block + 1);
+	return (block + 1);
 }
 
 /// @brief Finds a free block of memory that can accommodate the requested size
@@ -73,40 +55,22 @@ t_block	*find_free_block(size_t size)
 	return (NULL);
 }
 
-/// @brief Requests a new block of memory from the system by creating a new zone
-/// for tiny or small sizes, or a large block for larger sizes.
-/// @param size The requested original size.
-/// @return A pointer to the newly allocated block, or NULL if allocation fails.
-t_block	*request_space(size_t size)
+void	split_block(t_block *block, size_t size)
 {
-	t_zone	*zone;
-	t_block	*block;
+	t_block	*new_block;
 
-	if (size <= TINY_MAX_SIZE)
-		zone = create_zone(TINY_ZONE, &g_malloc.tiny);
-	else if (size <= SMALL_MAX_SIZE)
-		zone = create_zone(SMALL_ZONE, &g_malloc.small);
-	else
-		return (create_large_block(size));
+	if (block->size >= size + sizeof(t_block) + sizeof(size_t))
+	{
+		new_block = (t_block *)((char *)(block + 1) + size);
+		new_block->size = block->size - size - sizeof(t_block);
+		new_block->status = FREE;
+		new_block->next = block->next;
+		new_block->prev = block;
 
-	if (!zone)
-		return (NULL);
+		if (new_block->next)
+			new_block->next->prev = new_block;
 
-	block = zone->blocks;
-
-	return ((void *)(block + 1));
-}
-
-t_block	*create_block(t_zone *zone, size_t size)
-{
-	t_block	*block;
-
-	block = (t_block *)((char *)zone + sizeof(t_zone));
-
-	block->size = size;
-	block->status = FREE;
-	block->next = NULL;
-	block->prev = NULL;
-
-	return (block);
+		block->size = size;
+		block->next = new_block;
+	}
 }

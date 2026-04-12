@@ -14,7 +14,14 @@
 
 void	free(void *ptr)
 {
-	if (ptr) {}
-		// dar free
-	// Implementação futura
+	if (ptr)
+	{
+		t_block	*block;
+
+		block = (t_block *)ptr - 1;
+		block->status = FREE;
+
+		// Optionally, you can implement coalescing of adjacent free blocks here
+	}
+
 }

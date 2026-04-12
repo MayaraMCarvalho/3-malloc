@@ -6,40 +6,62 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 20:23:20 by macarval          #+#    #+#             */
-/*   Updated: 2026/04/11 18:45:33 by macarval         ###   ########.fr       */
+/*   Updated: 2026/04/11 21:20:53 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils_malloc.h"
 
-static void	print_blocks(t_zone *zone)
+static int	print_blocks(t_block *blocks)
 {
 	t_block	*current;
+	int		total_size;
 
-	current = zone->blocks;
+	total_size = 0;
+	current = blocks;
 	while (current)
 	{
-		ft_printf("0x%X - 0x%X : %u bytes\n",
-			(void *)(current + 1),
-			(void *)((char *)(current + 1) + current->size),
-			current->size);
+		if (current->status == ALLOCATED)
+		{
+			ft_printf("%p - %p : %u bytes\n",
+				(void *)(current + 1),
+				(void *)((char *)(current + 1) + current->size),
+				(unsigned int)current->size);
+			total_size += current->size;
+		}
 		current = current->next;
 	}
+	return (total_size);
+}
+
+static int	print_zones(t_zone *zone, char *zone_name)
+{
+	int	total_size;
+
+	total_size = 0;
+	while (zone)
+	{
+		ft_printf("\n%s : %p\n", zone_name, (void *)zone);
+		total_size += print_blocks(zone->blocks);
+		zone = zone->next;
+	}
+	return (total_size);
 }
 
 void	show_alloc_mem(void)
 {
-	ft_printf("TINY : 0x%X\n", (void *)g_malloc.tiny);
-	if (g_malloc.tiny)
-		print_blocks(g_malloc.tiny);
+	int	total_size;
 
-	ft_printf("SMALL : 0x%X\n", (void *)g_malloc.small);
-	if (g_malloc.small)
-		print_blocks(g_malloc.small);
+	total_size = 0;
+	total_size += print_zones(g_malloc.tiny, "TINY");
+	total_size += print_zones(g_malloc.small, "SMALL");
 
-	ft_printf("LARGE : 0x%X\n", (void *)g_malloc.large);
 	if (g_malloc.large)
-		print_blocks((t_zone *)g_malloc.large);
+	{
+		ft_printf("\nLARGE : %p\n", (void *)g_malloc.large);
+		total_size += print_blocks(g_malloc.large);
+	}
+	ft_printf("\nTotal : %d bytes\n", total_size);
 }
 
 

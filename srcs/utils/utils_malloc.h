@@ -56,19 +56,22 @@ typedef struct s_malloc
 extern t_malloc	g_malloc;
 
 // block.c
-size_t	align_size(size_t size);
 void	*allocate_block(size_t size);
 t_block	*find_free_block(size_t size);
-t_block	*request_space(size_t size);
-t_block	*create_block(t_zone *zone, size_t size);
+void	split_block(t_block *block, size_t size);
+
+// large_block.c
+t_block	*create_large_block(size_t size);
+void	add_large_block(t_block *block);
 
 // zone.c
 t_block	*get_zone(size_t size);
 t_zone	*create_zone(size_t zone_size, t_zone **head);
-t_block	*create_large_block(size_t size);
+
 void	add_zone(t_zone *zone, t_zone **head);
 
 // utils.c
-
+size_t	align_size(size_t size);
+t_block	*request_space(size_t size);
 
 #endif

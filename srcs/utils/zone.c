@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 14:51:57 by macarval          #+#    #+#             */
-/*   Updated: 2026/04/11 17:55:18 by macarval         ###   ########.fr       */
+/*   Updated: 2026/04/11 19:52:35 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ t_zone	*create_zone(size_t zone_size, t_zone **head)
 
 	zone = (t_zone *) mmap(NULL, zone_size, PROT_READ | PROT_WRITE,
 			MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
-
 	if (zone == MAP_FAILED)
 		return (NULL);
 
@@ -53,25 +52,18 @@ t_zone	*create_zone(size_t zone_size, t_zone **head)
 	zone->next = NULL;
 
 	zone->blocks = (t_block *)(zone + 1);
-
-    // O tamanho disponível para o primeiro bloco é:
-    // Total da zona - tamanho da struct zone - tamanho da struct block
-    zone->blocks->size = zone_size - sizeof(t_zone) - sizeof(t_block);
-    zone->blocks->status = FREE;
-    zone->blocks->next = NULL;
-    zone->blocks->prev = NULL;
-
-	// zone->blocks = create_block(zone, zone_size - sizeof(t_zone));
-	// if (!zone->blocks)
-	// {
-	// 	munmap(zone, zone_size);
-	// 	return (NULL);
-	// }
+	zone->blocks->size = zone_size - sizeof(t_zone) - sizeof(t_block);
+	zone->blocks->status = FREE;
+	zone->blocks->next = NULL;
+	zone->blocks->prev = NULL;
 
 	add_zone(zone, head);
 	return (zone);
 }
 
+/// @brief Adds a new zone to the end of the linked list of zones.
+/// @param zone The zone to be added.
+/// @param head A pointer to the head of the linked list of zones.
 void	add_zone(t_zone *zone, t_zone **head)
 {
 	t_zone	*current;
@@ -90,21 +82,4 @@ void	add_zone(t_zone *zone, t_zone **head)
 		current = current->next;
 
 	current->next = zone;
-}
-
-t_block	*create_large_block(size_t size)
-{
-	t_block	*block;
-
-	block = mmap(NULL, size + sizeof(t_block), PROT_READ | PROT_WRITE,
-			MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
-	if (block == MAP_FAILED)
-		return (NULL);
-
-	block->size = size;
-	block->status = ALLOCATED;
-	block->next = NULL;
-	block->prev = NULL;
-
-	return (block);
 }
