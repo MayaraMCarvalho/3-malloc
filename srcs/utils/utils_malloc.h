@@ -57,17 +57,22 @@ extern t_malloc	g_malloc;
 
 // block.c
 void	*allocate_block(size_t size);
-t_block	*find_free_block(size_t size);
 void	split_block(t_block *block, size_t size);
+
+// find_block.c
+t_block	*find_free_block(size_t size);
+t_block	*find_real_block(void *ptr);
+t_block	*find_block_from_ptr(t_zone *zone, void *ptr);
+t_block	*find_block(t_block *block, void *ptr);
 
 // large_block.c
 t_block	*create_large_block(size_t size);
 void	add_large_block(t_block *block);
+void	free_large_block(t_block *block);
 
 // zone.c
 t_block	*get_zone(size_t size);
 t_zone	*create_zone(size_t zone_size, t_zone **head);
-
 void	add_zone(t_zone *zone, t_zone **head);
 
 // utils.c

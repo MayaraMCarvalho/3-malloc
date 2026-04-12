@@ -14,15 +14,36 @@
 
 void	free(void *ptr)
 {
-	if (ptr)
+	t_block	*block;
+
+	if (!ptr )
+		return ;
+
+	block = find_real_block(ptr);
+
+	if (!block || block->status == FREE || block->size == 0)
+		return ;
+
+	if (block->size > SMALL_MAX_SIZE)
 	{
-		t_block	*block;
-
-		block = (t_block *)ptr - 1;
-		block->status = FREE;
-
-		// Optionally, you can implement coalescing of adjacent free blocks here
-		// Varificar a limpeza da memória em si.
+		free_large_block(block);
+		return ;
 	}
+
+	block->status = FREE;
+
+	// TODO: coalesce_blocks(block);
+
+	// munmap((void *)block, block->size + sizeof(t_block));
+	// block->status = FREE;
+	// block->size = 0;
+	// if (block->prev)
+	// 	block->prev->next = block->next;
+	// if (block->next)
+	// 	block->next->prev = block->prev;
+
+	// Optionally, you can implement coalescing of adjacent free blocks here
+	// Varificar a limpeza da memória em si.
+
 
 }

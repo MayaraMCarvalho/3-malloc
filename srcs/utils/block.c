@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 14:51:50 by macarval          #+#    #+#             */
-/*   Updated: 2026/04/11 21:40:10 by macarval         ###   ########.fr       */
+/*   Updated: 2026/04/12 13:51:38 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,26 +35,6 @@ void	*allocate_block(size_t size)
 	return (block + 1);
 }
 
-/// @brief Finds a free block of memory that can accommodate the requested size
-/// by traversing the appropriate zone's linked list of blocks.
-/// @param size The requested original size.
-/// @return A pointer to the found free block, or NULL if no suitable block
-/// is found.
-t_block	*find_free_block(size_t size)
-{
-	t_block	*current;
-
-	current = get_zone(size);
-	while (current)
-	{
-		if (current->status == FREE && current->size >= size)
-			return (current);
-		current = current->next;
-	}
-
-	return (NULL);
-}
-
 void	split_block(t_block *block, size_t size)
 {
 	t_block	*new_block;
@@ -74,3 +54,6 @@ void	split_block(t_block *block, size_t size)
 		block->next = new_block;
 	}
 }
+
+
+

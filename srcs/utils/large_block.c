@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 20:08:33 by macarval          #+#    #+#             */
-/*   Updated: 2026/04/11 20:10:48 by macarval         ###   ########.fr       */
+/*   Updated: 2026/04/12 13:32:12 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,20 @@ void	add_large_block(t_block *block)
 	block->next = g_malloc.large;
 	g_malloc.large->prev = block;
 	g_malloc.large = block;
+}
+
+void	free_large_block(t_block *block)
+{
+	if (!block)
+		return ;
+
+	if (block->prev)
+		block->prev->next = block->next;
+	if (block->next)
+		block->next->prev = block->prev;
+
+	if (block->prev == NULL)
+		g_malloc.large = block->next;
+
+	munmap((void *)block, block->size + sizeof(t_block));
 }
