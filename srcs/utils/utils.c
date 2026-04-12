@@ -47,5 +47,5 @@ t_block	*request_space(size_t size)
 
 	block = zone->blocks;
 
-	return ((void *)(block + 1));
+	return ((void *)(block));
 }

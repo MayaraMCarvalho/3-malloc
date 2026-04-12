@@ -22,6 +22,7 @@ void	free(void *ptr)
 		block->status = FREE;
 
 		// Optionally, you can implement coalescing of adjacent free blocks here
+		// Varificar a limpeza da memória em si.
 	}
 
 }
