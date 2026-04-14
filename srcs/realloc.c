@@ -14,8 +14,8 @@
 
 void	*realloc(void *ptr, size_t size)
 {
-	if (!ptr && size) {} //deletar
-
-	// Implementação futura
-	return NULL;
+	if (!ptr && size)
+	{
+	}
+	return (NULL);
 }

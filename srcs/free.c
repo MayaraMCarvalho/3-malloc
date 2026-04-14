@@ -12,28 +12,21 @@
 
 #include "utils_malloc.h"
 
-/// @brief 
-/// @param ptr
 void	free(void *ptr)
 {
 	t_block	*block;
 
 	if (!ptr)
 		return ;
-
 	block = find_real_block(ptr);
-
 	if (!block || block->status == FREE || block->size == 0)
 		return ;
-
 	if (block->size > SMALL_MAX_SIZE)
 	{
 		free_large_block(block);
 		return ;
 	}
-
 	block->status = FREE;
 	block = coalesce_blocks(block);
-
 	handle_zone_empty(block);
 }

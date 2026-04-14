@@ -22,9 +22,24 @@ size_t	align_size(size_t size)
 	alignment = sizeof(size_t);
 	if (size % alignment == 0)
 		return (size);
-
 	return (((size / alignment) + 1) * alignment);
 }
+
+#ifdef __APPLE__
+
+static size_t	get_page_size(void)
+{
+	return (getpagesize());
+}
+
+#else
+
+static size_t	get_page_size(void)
+{
+	return (sysconf(_SC_PAGESIZE));
+}
+
+#endif
 
 /// @brief Requests a new block of memory from the system by creating a new zone
 /// for tiny or small sizes, or a large block for larger sizes.
@@ -36,16 +51,13 @@ t_block	*request_space(size_t size)
 	t_block	*block;
 
 	if (size <= TINY_MAX_SIZE)
-		zone = create_zone(TINY_ZONE, &g_malloc.tiny);
+		zone = create_zone(TINY_ZONE * get_page_size(), &g_malloc.tiny);
 	else if (size <= SMALL_MAX_SIZE)
-		zone = create_zone(SMALL_ZONE, &g_malloc.small);
+		zone = create_zone(SMALL_ZONE * get_page_size(), &g_malloc.small);
 	else
 		return (create_large_block(size));
-
 	if (!zone)
 		return (NULL);
-
 	block = zone->blocks;
-
 	return ((void *)(block));
 }

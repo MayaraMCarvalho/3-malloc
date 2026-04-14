@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 18:54:19 by macarval          #+#    #+#             */
-/*   Updated: 2026/04/14 19:33:13 by macarval         ###   ########.fr       */
+/*   Updated: 2026/04/14 20:03:42 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static void	print_hexdump(unsigned char *ptr, size_t size)
 	limit = size;
 	if (limit >= 16)
 		limit = 16;
-
 	ft_printf("        -> Data: ");
 	while (++i < limit)
 	{
@@ -33,7 +32,6 @@ static void	print_hexdump(unsigned char *ptr, size_t size)
 			ft_printf("0");
 		ft_printf("%X ", ptr[i]);
 	}
-
 	if (size > 16)
 		ft_printf("...");
 	ft_printf("\n\n");
@@ -58,7 +56,6 @@ static void	print_blocks_ex(t_block *blocks)
 				(void *)(current + 1),
 				(void *)((char *)(current + 1) + current->size),
 				(unsigned int)current->size);
-
 			print_hexdump((unsigned char *)(current + 1), current->size);
 		}
 		else
@@ -100,15 +97,12 @@ static void	print_zones_ex(t_zone *zone, char *zone_name)
 void	show_alloc_mem_ex(void)
 {
 	ft_printf("\n%s=== DUMP DETALHADO DE MEMÓRIA ===%s\n", PURPLE, RESET);
-
 	print_zones_ex(g_malloc.tiny, "TINY");
 	print_zones_ex(g_malloc.small, "SMALL");
-
 	if (g_malloc.large)
 	{
 		ft_printf("\n%sLARGE : %p%s\n", CYAN, (void *)g_malloc.large, RESET);
 		print_blocks_ex(g_malloc.large);
 	}
-
 	ft_printf("%s=================================%s\n\n", PURPLE, RESET);
 }

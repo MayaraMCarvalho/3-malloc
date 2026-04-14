@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 14:51:50 by macarval          #+#    #+#             */
-/*   Updated: 2026/04/14 19:15:30 by macarval         ###   ########.fr       */
+/*   Updated: 2026/04/14 20:01:06 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,10 @@ void	*allocate_block(size_t size)
 		if (!block)
 			return (NULL);
 	}
-
 	split_block(block, size);
 	block->status = ALLOCATED;
-
 	return (block + 1);
 }
-
 
 /// @brief Splits a block into two if the remaining space after allocation is
 /// large enough to hold another block, updating the linked list
@@ -52,10 +49,8 @@ void	split_block(t_block *block, size_t size)
 		new_block->status = FREE;
 		new_block->next = block->next;
 		new_block->prev = block;
-
 		if (new_block->next)
 			new_block->next->prev = new_block;
-
 		block->size = size;
 		block->next = new_block;
 	}
@@ -74,7 +69,6 @@ t_block	*coalesce_blocks(t_block *block)
 		if (block->next)
 			block->next->prev = block;
 	}
-
 	if (block->prev && block->prev->status == FREE)
 	{
 		block->prev->size += sizeof(t_block) + block->size;
@@ -83,9 +77,5 @@ t_block	*coalesce_blocks(t_block *block)
 			block->next->prev = block->prev;
 		block = block->prev;
 	}
-
 	return (block);
 }
-
-
-

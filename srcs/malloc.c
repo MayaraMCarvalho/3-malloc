@@ -12,7 +12,7 @@
 
 #include "utils_malloc.h"
 
-t_malloc g_malloc = {NULL, NULL, NULL, PTHREAD_MUTEX_INITIALIZER};
+t_malloc	g_malloc = {NULL, NULL, NULL, PTHREAD_MUTEX_INITIALIZER};
 
 /// @brief Allocates a block of memory of the specified size, first trying to
 /// find a free block in the appropriate zone, and if none is found, requesting
@@ -25,7 +25,6 @@ void	*malloc(size_t size)
 
 	if (size == 0)
 		return (NULL);
-
 	aligned_size = align_size(size);
 	return (allocate_block(aligned_size));
 }

@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 20:23:20 by macarval          #+#    #+#             */
-/*   Updated: 2026/04/14 19:29:59 by macarval         ###   ########.fr       */
+/*   Updated: 2026/04/14 20:00:29 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,11 @@ static int	print_zones(t_zone *zone, char *zone_name)
 	return (total_size);
 }
 
-/// @brief Displays the currently allocated memory blocks in a human-readable format,
-/// including the start and end addresses, size, and status (allocated or free)
-/// of each block, as well as a total count of allocated bytes. Additionally, it
-/// prints a hexdump of the first 16 bytes of allocated blocks for debugging
-/// purposes.
+/// @brief Displays the currently allocated memory blocks in a human-readable
+/// format, including the start and end addresses, size, and status (allocated
+/// or free) of each block, as well as a total count of allocated bytes.
+// Additionally, it prints a hexdump of the first 16 bytes of allocated
+/// blocks for debugging purposes.
 /// @param void No parameters.
 void	show_alloc_mem(void)
 {
@@ -75,7 +75,6 @@ void	show_alloc_mem(void)
 	total_size = 0;
 	total_size += print_zones(g_malloc.tiny, "TINY");
 	total_size += print_zones(g_malloc.small, "SMALL");
-
 	if (g_malloc.large)
 	{
 		ft_printf("\nLARGE : %p\n", (void *)g_malloc.large);

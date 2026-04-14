@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/12 13:38:28 by macarval          #+#    #+#             */
-/*   Updated: 2026/04/14 19:35:42 by macarval         ###   ########.fr       */
+/*   Updated: 2026/04/14 20:01:47 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,8 @@ t_block	*find_free_block(size_t size)
 			return (current);
 		current = current->next;
 	}
-
 	return (NULL);
 }
-
 
 /// @brief Finds the block corresponding to the given pointer by traversing
 /// all zones and their blocks.
@@ -43,19 +41,15 @@ t_block	*find_real_block(void *ptr)
 
 	if (!ptr)
 		return (NULL);
-
 	block = find_block_from_ptr(g_malloc.tiny, ptr);
 	if (block)
 		return (block);
-
 	block = find_block_from_ptr(g_malloc.small, ptr);
 	if (block)
 		return (block);
-
 	block = find_block(g_malloc.large, ptr);
 	if (block)
 		return (block);
-
 	return (NULL);
 }
 
@@ -87,7 +81,6 @@ t_block	*find_block(t_block *block, void *ptr)
 {
 	if (!block || !ptr)
 		return (NULL);
-
 	while (block)
 	{
 		if ((void *)(block + 1) == ptr)

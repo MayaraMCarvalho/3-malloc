@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 14:51:57 by macarval          #+#    #+#             */
-/*   Updated: 2026/04/14 19:43:12 by macarval         ###   ########.fr       */
+/*   Updated: 2026/04/14 20:02:30 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ t_block	*get_zone(size_t size)
 			return (g_malloc.small->blocks);
 		return (NULL);
 	}
-
 	return (g_malloc.large);
 }
 
@@ -47,17 +46,14 @@ t_zone	*create_zone(size_t zone_size, t_zone **head)
 			MAP_ANONYMOUS | MAP_PRIVATE, -1, 0);
 	if (zone == MAP_FAILED)
 		return (NULL);
-
 	zone->total_size = zone_size;
 	zone->prev = NULL;
 	zone->next = NULL;
-
 	zone->blocks = (t_block *)(zone + 1);
 	zone->blocks->size = zone_size - sizeof(t_zone) - sizeof(t_block);
 	zone->blocks->status = FREE;
 	zone->blocks->prev = NULL;
 	zone->blocks->next = NULL;
-
 	add_zone(zone, head);
 	return (zone);
 }
@@ -71,18 +67,15 @@ void	add_zone(t_zone *zone, t_zone **head)
 
 	if (!head)
 		return ;
-
 	if (!*head)
 	{
 		*head = zone;
 		zone->prev = NULL;
 		return ;
 	}
-
 	current = *head;
 	while (current->next)
 		current = current->next;
-
 	current->next = zone;
 	zone->prev = current;
 }
@@ -94,23 +87,18 @@ void	handle_zone_empty(t_block *block)
 	if (block->prev == NULL && block->next == NULL && block->status == FREE)
 	{
 		zone = (t_zone *)((char *)block - sizeof(t_zone));
-
 		if (zone == g_malloc.tiny && zone->next == NULL)
 			return ;
-
 		if (zone == g_malloc.small && zone->next == NULL)
 			return ;
-
 		if (zone->prev)
 			zone->prev->next = zone->next;
 		if (zone->next)
 			zone->next->prev = zone->prev;
-
 		if (zone == g_malloc.tiny)
 			g_malloc.tiny = zone->next;
 		else if (zone == g_malloc.small)
 			g_malloc.small = zone->next;
-
 		munmap((void *)zone, zone->total_size);
 	}
 }

@@ -13,22 +13,18 @@
 #ifndef UTILS_MALLOC_H
 # define UTILS_MALLOC_H
 
+# include <unistd.h>
+
 # include "malloc.h"
 # include "libft.h"
 # include "colors.h"
-
-# ifdef __APPLE__
-	# define PAGE_SIZE getpagesize()
-# else
-	# define PAGE_SIZE sysconf(_SC_PAGESIZE)
-# endif
 
 # define FREE			0
 # define ALLOCATED		1
 # define TINY_MAX_SIZE	128
 # define SMALL_MAX_SIZE	1024
-# define TINY_ZONE		(4 * PAGE_SIZE)
-# define SMALL_ZONE		(26 * PAGE_SIZE)
+# define TINY_ZONE		4
+# define SMALL_ZONE		26
 
 typedef struct s_block
 {
