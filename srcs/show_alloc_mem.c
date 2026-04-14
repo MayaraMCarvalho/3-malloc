@@ -6,12 +6,17 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 20:23:20 by macarval          #+#    #+#             */
-/*   Updated: 2026/04/11 22:02:56 by macarval         ###   ########.fr       */
+/*   Updated: 2026/04/14 19:29:59 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils_malloc.h"
 
+/// @brief Displays the currently allocated memory blocks in a human-readable
+/// format, including the start and end addresses, size, and status (allocated
+/// or free) of each block, as well as a total count of allocated bytes.
+/// @param blocks A pointer to the first block in the zone to be displayed.
+/// @return The total size of allocated blocks in the zone.
 static int	print_blocks(t_block *blocks)
 {
 	t_block	*current;
@@ -34,6 +39,15 @@ static int	print_blocks(t_block *blocks)
 	return (total_size);
 }
 
+/// @brief Displays the currently allocated memory blocks in a human-readable
+/// format, including the start and end addresses, size, and status (allocated
+/// or free) of each block, as well as a total count of allocated bytes.
+/// Additionally, it prints a hexdump of the first 16 bytes of allocated
+/// blocks for debugging purposes.
+/// @param zone A pointer to the first block in the zone to be displayed.
+/// @param zone_name The name of the zone being displayed
+/// (e.g., "TINY", "SMALL", "LARGE").
+/// @return The total size of allocated blocks in the zone.
 static int	print_zones(t_zone *zone, char *zone_name)
 {
 	int	total_size;
@@ -48,6 +62,12 @@ static int	print_zones(t_zone *zone, char *zone_name)
 	return (total_size);
 }
 
+/// @brief Displays the currently allocated memory blocks in a human-readable format,
+/// including the start and end addresses, size, and status (allocated or free)
+/// of each block, as well as a total count of allocated bytes. Additionally, it
+/// prints a hexdump of the first 16 bytes of allocated blocks for debugging
+/// purposes.
+/// @param void No parameters.
 void	show_alloc_mem(void)
 {
 	int	total_size;

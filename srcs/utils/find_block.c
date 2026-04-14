@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/12 13:38:28 by macarval          #+#    #+#             */
-/*   Updated: 2026/04/12 13:53:28 by macarval         ###   ########.fr       */
+/*   Updated: 2026/04/14 19:35:42 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@ t_block	*find_free_block(size_t size)
 
 	return (NULL);
 }
+
+
+/// @brief Finds the block corresponding to the given pointer by traversing
+/// all zones and their blocks.
+/// @param ptr The pointer to the block to find.
+/// @return A pointer to the found block, or NULL if not found.
 t_block	*find_real_block(void *ptr)
 {
 	t_block	*block;
@@ -53,6 +59,11 @@ t_block	*find_real_block(void *ptr)
 	return (NULL);
 }
 
+/// @brief Finds the block corresponding to the given pointer within a specific
+/// zone by traversing its linked list of blocks.
+/// @param zone The zone to search within.
+/// @param ptr The pointer to the block to find.
+/// @return A pointer to the found block, or NULL if not found.
 t_block	*find_block_from_ptr(t_zone *zone, void *ptr)
 {
 	t_block	*block;
@@ -67,6 +78,11 @@ t_block	*find_block_from_ptr(t_zone *zone, void *ptr)
 	return (NULL);
 }
 
+/// @brief Finds the block corresponding to the given pointer by traversing a
+/// linked list of blocks.
+/// @param block The head of the linked list to search.
+/// @param ptr The pointer to the block to find.
+/// @return A pointer to the found block, or NULL if not found.
 t_block	*find_block(t_block *block, void *ptr)
 {
 	if (!block || !ptr)

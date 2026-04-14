@@ -34,14 +34,15 @@ typedef struct s_block
 {
 	size_t			size;
 	int				status;
-	struct s_block	*next;
 	struct s_block	*prev;
+	struct s_block	*next;
 }	t_block;
 
 typedef struct s_zone
 {
 	t_block			*blocks;
 	size_t			total_size;
+	struct s_zone	*prev;
 	struct s_zone	*next;
 }	t_zone;
 
@@ -58,6 +59,7 @@ extern t_malloc	g_malloc;
 // block.c
 void	*allocate_block(size_t size);
 void	split_block(t_block *block, size_t size);
+t_block	*coalesce_blocks(t_block *block);
 
 // find_block.c
 t_block	*find_free_block(size_t size);
@@ -74,6 +76,7 @@ void	free_large_block(t_block *block);
 t_block	*get_zone(size_t size);
 t_zone	*create_zone(size_t zone_size, t_zone **head);
 void	add_zone(t_zone *zone, t_zone **head);
+void	handle_zone_empty(t_block *block);
 
 // utils.c
 size_t	align_size(size_t size);

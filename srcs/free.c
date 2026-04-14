@@ -12,11 +12,13 @@
 
 #include "utils_malloc.h"
 
+/// @brief 
+/// @param ptr
 void	free(void *ptr)
 {
 	t_block	*block;
 
-	if (!ptr )
+	if (!ptr)
 		return ;
 
 	block = find_real_block(ptr);
@@ -31,19 +33,7 @@ void	free(void *ptr)
 	}
 
 	block->status = FREE;
+	block = coalesce_blocks(block);
 
-	// TODO: coalesce_blocks(block);
-
-	// munmap((void *)block, block->size + sizeof(t_block));
-	// block->status = FREE;
-	// block->size = 0;
-	// if (block->prev)
-	// 	block->prev->next = block->next;
-	// if (block->next)
-	// 	block->next->prev = block->prev;
-
-	// Optionally, you can implement coalescing of adjacent free blocks here
-	// Varificar a limpeza da memória em si.
-
-
+	handle_zone_empty(block);
 }
