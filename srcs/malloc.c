@@ -21,10 +21,14 @@ t_malloc	g_malloc = {NULL, NULL, NULL, PTHREAD_MUTEX_INITIALIZER};
 /// @return A pointer to the allocated block, or NULL if allocation fails.
 void	*malloc(size_t size)
 {
-	size_t	aligned_size;
+	size_t			aligned_size;
+	struct rlimit	limit;
 
 	if (size == 0)
 		return (NULL);
 	aligned_size = align_size(size);
+	if (getrlimit(RLIMIT_AS, &limit) == 0
+		&& limit.rlim_cur != RLIM_INFINITY && aligned_size > limit.rlim_cur)
+		return (NULL);
 	return (allocate_block(aligned_size));
 }
