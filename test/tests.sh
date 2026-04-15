@@ -37,6 +37,11 @@ declare -a descriptions=(
 	"Basic realloc() with data retention"
 	"Edge case: realloc(NULL) and realloc(0)"
 	"Stress test: 1000 loop allocations/frees"
+	"Visual: Tiny zone allocations & frees"
+	"Visual: Small zone allocations & frees"
+	"Visual: Large zone allocations & frees"
+	"Visual: Edge cases crash survival"
+	"Visual: Fragmentation and Coalescing"
 )
 
 clear

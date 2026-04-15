@@ -6,7 +6,7 @@
 #    By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/19 16:33:22 by macarval          #+#    #+#              #
-#    Updated: 2026/04/14 21:35:45 by macarval         ###   ########.fr        #
+#    Updated: 2026/04/14 21:56:00 by macarval         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ LDFLAGS		= -L. -lft_malloc -Wl,-rpath,$(shell pwd)
 
 # --- Test Program Configuration ---
 COMP_PATH	= test
-COMP_SRCS	= $(COMP_PATH)/info.c $(COMP_PATH)/test_malloc.c
+COMP_SRCS	= $(COMP_PATH)/main.c $(COMP_PATH)/info.c $(COMP_PATH)/test_malloc.c
 COMP		= $(OBJS_PATH)/test_malloc
 
 # Regular colors
