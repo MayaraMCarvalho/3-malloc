@@ -12,14 +12,14 @@
 
 #include "utils_malloc.h"
 
-/// @brief Aligns the size to the next multiple of sizeof(size_t).
+/// @brief Aligns the size to the next multiple of 16 bytes (64-bit).
 /// @param size The requested original size.
 /// @return The aligned size.
 size_t	align_size(size_t size)
 {
 	size_t	alignment;
 
-	alignment = sizeof(size_t);
+	alignment = 16;
 	if (size % alignment == 0)
 		return (size);
 	return (((size / alignment) + 1) * alignment);

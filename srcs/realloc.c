@@ -32,6 +32,17 @@ void	*realloc(void *ptr, size_t size)
 		split_block(block, align_size(size));
 		return (ptr);
 	}
+	if (block->next && block->next->status == FREE
+		&& (block->size + sizeof(t_block) + block->next->size)
+		>= align_size(size))
+	{
+		block->size += sizeof(t_block) + block->next->size;
+		block->next = block->next->next;
+		if (block->next)
+			block->next->prev = block;
+		split_block(block, align_size(size));
+		return (ptr);
+	}
 	new_ptr = malloc(size);
 	if (!new_ptr)
 		return (NULL);

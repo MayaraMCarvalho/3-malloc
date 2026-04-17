@@ -42,6 +42,8 @@ declare -a descriptions=(
 	"Visual: Large zone allocations & frees"
 	"Visual: Edge cases crash survival"
 	"Visual: Fragmentation and Coalescing"
+	"Large allocation test"
+	"Overlaping test"
 )
 
 clear

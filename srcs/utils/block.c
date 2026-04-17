@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 14:51:50 by macarval          #+#    #+#             */
-/*   Updated: 2026/04/14 20:01:06 by macarval         ###   ########.fr       */
+/*   Updated: 2026/04/17 18:27:22 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	split_block(t_block *block, size_t size)
 			new_block->next->prev = new_block;
 		block->size = size;
 		block->next = new_block;
+		coalesce_blocks(block);
 	}
 }
 
