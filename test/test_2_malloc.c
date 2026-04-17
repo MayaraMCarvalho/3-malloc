@@ -6,11 +6,13 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 14:06:29 by macarval          #+#    #+#             */
-/*   Updated: 2026/04/17 18:31:51 by macarval         ###   ########.fr       */
+/*   Updated: 2026/04/17 18:43:16 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
+#include "libft.h"
+#include "colors.h"
 
 int	test_6(void)
 {
@@ -56,7 +58,7 @@ int	test_7_tiny(void)
 	free(t1);
 	free(t2);
 	free(t3);
-	ft_printf(CYAN "\n=== After Free ===\n" RESET);
+	ft_printf("%s\n=== After Free ===\n%s", CYAN, RESET);
 	show_alloc_mem_ex();
 	return (0);
 }
@@ -78,7 +80,7 @@ int	test_8_small(void)
 	free(s1);
 	free(s2);
 	free(s3);
-	ft_printf(CYAN "\n=== After Free ===\n" RESET);
+	ft_printf("%s\n=== After Free ===\n%s", CYAN, RESET);
 	show_alloc_mem_ex();
 	return (0);
 }
@@ -97,7 +99,7 @@ int	test_9_large(void)
 	free(l1);
 	free(l2);
 	free(l3);
-	ft_printf(CYAN "\n=== After Free ===\n" RESET);
+	ft_printf("%s\n=== After Free ===\n%s", CYAN, RESET);
 	show_alloc_mem_ex();
 	return (0);
 }

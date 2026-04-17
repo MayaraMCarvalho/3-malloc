@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 20:30:01 by macarval          #+#    #+#             */
-/*   Updated: 2026/04/17 15:13:43 by macarval         ###   ########.fr       */
+/*   Updated: 2026/04/17 18:47:32 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@ int		test_8_small(void);
 int		test_9_large(void);
 int		test_10_edge_cases(void);
 int		test_11_fragmentation(void);
+int		test_12_overlap(void);
+int		test_13_massive(void);
+int		test_14_shrink_coalesce(void);
+int		test_15_expand_inplace(void);
 
 static void	complex_tests(void)
 {
@@ -36,6 +40,10 @@ static void	complex_tests(void)
 	test_9_large();
 	test_10_edge_cases();
 	test_11_fragmentation();
+	test_12_overlap();
+	test_13_massive();
+	test_14_shrink_coalesce();
+	test_15_expand_inplace();
 	goodbye();
 }
 
@@ -63,6 +71,14 @@ static int	run_test(int test_id)
 		return (test_10_edge_cases());
 	if (test_id == 11)
 		return (test_11_fragmentation());
+	if (test_id == 12)
+		return (test_12_overlap());
+	if (test_id == 13)
+		return (test_13_massive());
+	if (test_id == 14)
+		return (test_14_shrink_coalesce());
+	if (test_id == 15)
+		return (test_15_expand_inplace());
 	return (0);
 }
 
