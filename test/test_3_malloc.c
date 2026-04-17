@@ -1,0 +1,125 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   test_3_malloc.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/04/17 14:06:29 by macarval          #+#    #+#             */
+/*   Updated: 2026/04/17 15:24:27 by macarval         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "malloc.h"
+#include "libft.h"
+#include "colors.h"
+
+/* ========================================================================== */
+/* TESTES VISUAIS E CASOS COMPLEXOS                       */
+/* ========================================================================== */
+
+int	test_7_tiny(void)
+{
+	char	*t1;
+	char	*t2;
+	char	*t3;
+
+	t1 = malloc(12);
+	t2 = malloc(5);
+	t3 = malloc(128);
+	ft_printf("\n%s*** Test TINY ***%s\n", YELLOW, RESET);
+	t1[0] = 'A';
+	t2[0] = 'B';
+	t3[0] = 'C';
+	show_alloc_mem_ex();
+	free(t1);
+	free(t2);
+	free(t3);
+	ft_printf(CYAN "\n=== After Free ===\n" RESET);
+	show_alloc_mem_ex();
+	return (0);
+}
+
+int	test_8_small(void)
+{
+	char	*s1;
+	char	*s2;
+	char	*s3;
+
+	s1 = malloc(129);
+	s2 = malloc(523);
+	s3 = malloc(1024);
+	ft_printf("\n%s*** Test SMALL ***%s\n", YELLOW, RESET);
+	s1[0] = 'E';
+	s2[0] = 'F';
+	s3[0] = 'G';
+	show_alloc_mem_ex();
+	free(s1);
+	free(s2);
+	free(s3);
+	ft_printf(CYAN "\n=== After Free ===\n" RESET);
+	show_alloc_mem_ex();
+	return (0);
+}
+
+int	test_9_large(void)
+{
+	char	*l1;
+	char	*l2;
+	char	*l3;
+
+	l1 = malloc(1025);
+	l2 = malloc(1088);
+	l3 = malloc(2050);
+	ft_printf("\n%s*** Test LARGE ***%s\n", YELLOW, RESET);
+	show_alloc_mem_ex();
+	free(l1);
+	free(l2);
+	free(l3);
+	ft_printf(CYAN "\n=== After Free ===\n" RESET);
+	show_alloc_mem_ex();
+	return (0);
+}
+
+int	test_10_edge_cases(void)
+{
+	void	*ptr1;
+	void	*ptr2;
+
+	ft_printf("\n%s*** EXTREME CASE TEST ***%s\n", YELLOW, RESET);
+	ft_printf("[1] malloc(0)...\n");
+	ptr1 = malloc(0);
+	if (ptr1)
+		return (1);
+	ft_printf("[2] free(NULL)...\n");
+	free(NULL);
+	ft_printf("[3] realloc(NULL, 42)...\n");
+	ptr2 = realloc(NULL, 42);
+	ft_printf("[4] realloc(ptr, 0)...\n");
+	ptr2 = realloc(ptr2, 0);
+	ft_printf("[5] free(invalid_pointer)...\n");
+	free((void *)0xDEADBEEF);
+	ft_printf("%s-> Extreme cases survived without Segfault!%s\n",
+		GREEN, RESET);
+	return (0);
+}
+
+int	test_11_fragmentation(void)
+{
+	void	*a;
+	void	*b;
+	void	*c;
+
+	a = malloc(128);
+	b = malloc(128);
+	c = malloc(128);
+	ft_printf("\n%s*** FRAGMENTATION AND COALESCING TEST ***%s\n",
+		YELLOW, RESET);
+	ft_printf("-> 3 blocks allocated. Freeing the ends (A and C)...\n");
+	free(a);
+	free(c);
+	ft_printf("-> Freeing the middle (B). Should form a single block.\n");
+	free(b);
+	show_alloc_mem_ex();
+	return (0);
+}

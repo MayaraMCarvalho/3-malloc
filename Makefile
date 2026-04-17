@@ -6,7 +6,7 @@
 #    By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/19 16:33:22 by macarval          #+#    #+#              #
-#    Updated: 2026/04/14 21:56:00 by macarval         ###   ########.fr        #
+#    Updated: 2026/04/17 14:30:13 by macarval         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,10 @@ LDFLAGS		= -L. -lft_malloc -Wl,-rpath,$(shell pwd)
 
 # --- Test Program Configuration ---
 COMP_PATH	= test
-COMP_SRCS	= $(COMP_PATH)/main.c $(COMP_PATH)/info.c $(COMP_PATH)/test_malloc.c
+COMP_SRCS	= $(COMP_PATH)/main.c $(COMP_PATH)/info.c \
+			$(COMP_PATH)/test_1_malloc.c \
+			$(COMP_PATH)/test_2_malloc.c \
+			$(COMP_PATH)/test_3_malloc.c
 COMP		= $(OBJS_PATH)/test_malloc
 
 # Regular colors
@@ -62,7 +65,6 @@ BBLUE		= \033[1;34m
 BPURPLE		= \033[1;35m
 BCYAN		= \033[1;36m
 BWHITE		= \033[1;37m
-
 
 # --- Rules ---
 
@@ -109,7 +111,6 @@ $(COMP):	$(COMP_SRCS) $(NAME) | $(OBJS_PATH)
 comp:		$(NAME) $(COMP)
 
 run:		comp
-			clear
 			@echo "$(CYAN)Executing $(COMP) with $(SYMLINK)...$(RESET)"
 			@LD_PRELOAD=./$(SYMLINK) ./$(COMP) || true
 			@echo "$(CYAN)Execution complete.$(RESET)"
