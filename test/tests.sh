@@ -42,10 +42,10 @@ declare -a descriptions=(
 	"Visual: Large zone allocations & frees"
 	"Visual: Edge cases crash survival"
 	"Visual: Fragmentation and Coalescing"
-	"Visual: Large allocation test"
-	"Visual: Overlaping test"
-	"Visual: Shrink coalescing test"
-	"Visual: Expand inplace test"
+	"Math: Pointer Overlap Protection"
+	"System: Massive Allocation (rlimit check)"
+	"Visual: Coalesce on shrink"
+	"Logic: In-Place expand"
 )
 
 clear
@@ -71,6 +71,14 @@ echo -e "-----------------------------------------------------------------------
 for i in "${!descriptions[@]}"; do
 	test_id=$((i + 1))
 	desc="${descriptions[$i]}"
+
+	if [ $test_id -eq 1 ]; then
+		echo -e "${blue}\n--- PHASE 1: Core Functionality & Integrity ---${reset}"
+	elif [ $test_id -eq 7 ]; then
+		echo -e "${blue}\n--- PHASE 2: Visual States & Classic Coalescing ---${reset}"
+	elif [ $test_id -eq 12 ]; then
+		echo -e "${blue}\n--- PHASE 3: Protections & Math ---${reset}"
+	fi
 
 	((total_tests++))
 

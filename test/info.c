@@ -6,11 +6,12 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 15:48:17 by macarval          #+#    #+#             */
-/*   Updated: 2026/04/11 21:21:02 by macarval         ###   ########.fr       */
+/*   Updated: 2026/04/17 19:45:42 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils_malloc.h"
+#include "malloc.h"
+#include "libft.h"
 #include "colors.h"
 
 void	welcome(void)
@@ -33,4 +34,15 @@ void	goodbye(void)
 	ft_printf("║                                                    ║\n");
 	ft_printf("╚════════════════════════════════════════════════════╝\n");
 	ft_printf("%s", RESET);
+}
+
+void	pause_evaluator(const char	*test_name)
+{
+	char	c;
+
+	ft_printf("\n%s>>> Pressione [ENTER] para testar: %s...%s\n",
+		BYELLOW, test_name, RESET);
+	c = 0;
+	while (read(0, &c, 1) > 0 && c != '\n')
+		;
 }

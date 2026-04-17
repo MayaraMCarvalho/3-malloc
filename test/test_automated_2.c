@@ -1,36 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_3_malloc.c                                    :+:      :+:    :+:   */
+/*   test_automated_2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 14:06:29 by macarval          #+#    #+#             */
-/*   Updated: 2026/04/17 18:53:13 by macarval         ###   ########.fr       */
+/*   Updated: 2026/04/17 19:07:10 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 #include "libft.h"
-#include "colors.h"
 
-int	test_11_fragmentation(void)
+int	test_6(void)
 {
-	void	*a;
-	void	*b;
-	void	*c;
+	void	*arr[100];
+	int		i;
+	int		j;
 
-	a = malloc(128);
-	b = malloc(128);
-	c = malloc(128);
-	ft_printf("\n%s*** FRAGMENTATION AND COALESCING TEST ***%s\n",
-		YELLOW, RESET);
-	ft_printf("-> 3 blocks allocated. Freeing the ends (A and C)...\n");
-	free(a);
-	free(c);
-	ft_printf("-> Freeing the middle (B). Should form a single block.\n");
-	free(b);
-	show_alloc_mem_ex();
+	i = -1;
+	while (++i < 10)
+	{
+		j = 0;
+		while (j < 100)
+		{
+			arr[j] = malloc(128);
+			if (!arr[j])
+				return (1);
+			j++;
+		}
+		j = 0;
+		while (j < 100)
+		{
+			free(arr[j]);
+			j++;
+		}
+	}
 	return (0);
 }
 
@@ -43,8 +49,6 @@ int	test_12_overlap(void)
 	a = malloc(16);
 	b = malloc(16);
 	diff = (size_t)b - (size_t)a;
-	ft_printf("\n%s*** OVERLAP TEST ***%s\n", YELLOW, RESET);
-	ft_printf("-> diff: %zu\n", diff);
 	if (diff < 16)
 		return (1);
 	return (0);
@@ -65,31 +69,6 @@ int	test_13_massive(void)
 		return (1);
 	free(l1);
 	free(l2);
-	return (0);
-}
-
-int	test_14_shrink_coalesce(void)
-{
-	void	*a;
-	void	*b;
-	void	*c;
-
-	a = malloc(32);
-	b = malloc(32);
-	c = malloc(32);
-	if (!a || !b || !c)
-		return (1);
-	ft_printf("Three blocks (A, B, C) have been allocated. ");
-	ft_printf("Freeing block B to create a hole...\n");
-	free(b);
-	show_alloc_mem_ex();
-	ft_printf("Shrinking A (from 32 to 16 bytes).\n");
-	ft_printf("A's remaining space should automatically merge ");
-	ft_printf("with the hole B!\n");
-	a = realloc(a, 16);
-	show_alloc_mem_ex();
-	free(a);
-	free(c);
 	return (0);
 }
 

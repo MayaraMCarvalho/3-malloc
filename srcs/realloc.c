@@ -30,6 +30,8 @@ void	*realloc(void *ptr, size_t size)
 	if (align_size(size) <= block->size)
 	{
 		split_block(block, align_size(size));
+		if (block->next && block->next->status == FREE)
+			coalesce_blocks(block->next);
 		return (ptr);
 	}
 	if (block->next && block->next->status == FREE

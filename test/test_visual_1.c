@@ -1,45 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_2_malloc.c                                    :+:      :+:    :+:   */
+/*   test_visual_1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 14:06:29 by macarval          #+#    #+#             */
-/*   Updated: 2026/04/17 18:43:16 by macarval         ###   ########.fr       */
+/*   Updated: 2026/04/17 19:54:08 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "malloc.h"
 #include "libft.h"
 #include "colors.h"
-
-int	test_6(void)
-{
-	void	*arr[100];
-	int		i;
-	int		j;
-
-	i = -1;
-	while (++i < 10)
-	{
-		j = 0;
-		while (j < 100)
-		{
-			arr[j] = malloc(128);
-			if (!arr[j])
-				return (1);
-			j++;
-		}
-		j = 0;
-		while (j < 100)
-		{
-			free(arr[j]);
-			j++;
-		}
-	}
-	return (0);
-}
 
 int	test_7_tiny(void)
 {
@@ -124,5 +97,27 @@ int	test_10_edge_cases(void)
 	free((void *)0xDEADBEEF);
 	ft_printf("%s-> Extreme cases survived without Segfault!%s\n",
 		GREEN, RESET);
+	return (0);
+}
+
+int	test_11_fragmentation(void)
+{
+	void	*a;
+	void	*b;
+	void	*c;
+
+	a = malloc(128);
+	b = malloc(128);
+	c = malloc(128);
+	ft_printf("\n%s*** FRAGMENTATION AND COALESCING TEST ***%s\n",
+		YELLOW, RESET);
+	show_alloc_mem_ex();
+	ft_printf("-> 3 blocks allocated. Freeing the ends (A and C)...\n");
+	free(a);
+	free(c);
+	ft_printf("-> Freeing the middle (B). Should form a single block.\n");
+	show_alloc_mem_ex();
+	free(b);
+	show_alloc_mem_ex();
 	return (0);
 }

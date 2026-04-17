@@ -6,7 +6,7 @@
 #    By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/19 16:33:22 by macarval          #+#    #+#              #
-#    Updated: 2026/04/17 14:30:13 by macarval         ###   ########.fr        #
+#    Updated: 2026/04/17 19:21:54 by macarval         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,9 +42,10 @@ LDFLAGS		= -L. -lft_malloc -Wl,-rpath,$(shell pwd)
 # --- Test Program Configuration ---
 COMP_PATH	= test
 COMP_SRCS	= $(COMP_PATH)/main.c $(COMP_PATH)/info.c \
-			$(COMP_PATH)/test_1_malloc.c \
-			$(COMP_PATH)/test_2_malloc.c \
-			$(COMP_PATH)/test_3_malloc.c
+			$(COMP_PATH)/test_automated_1.c \
+			$(COMP_PATH)/test_automated_2.c \
+			$(COMP_PATH)/test_visual_1.c \
+			$(COMP_PATH)/test_visual_2.c
 COMP		= $(OBJS_PATH)/test_malloc
 
 # Regular colors
@@ -153,14 +154,14 @@ git:
 
 help:
 			@echo "$(CYAN)Available targets:$(RESET)"
-			@echo "  $(BGREEN)all$(RESET) - Build the library"
-			@echo "  $(BGREEN)re$(RESET) - Rebuild the library (clean + all)"
-			@echo "  $(BGREEN)clean$(RESET) - Remove object files"
+			@echo "  $(BGREEN)all$(RESET)    - Build the dynamic library"
+			@echo "  $(BGREEN)re$(RESET)     - Rebuild the library (clean + all)"
+			@echo "  $(BGREEN)clean$(RESET)  - Remove object files"
 			@echo "  $(BGREEN)fclean$(RESET) - Remove object files and library"
-			@echo "  $(BGREEN)comp$(RESET) - Compile test program"
-			@echo "  $(BGREEN)run$(RESET) - Run test program with the library"
-			@echo "  $(BGREEN)test$(RESET) - Run all tests"
-			@echo "  $(BGREEN)git$(RESET) - Add, commit, and push changes to git"
-			@echo "  $(BGREEN)help$(RESET) - Show this help message"
+			@echo "  $(BGREEN)comp$(RESET)   - Compile the test program"
+			@echo "  $(BGREEN)run$(RESET)    - Run Visual Presentation Mode (Step-by-step memory evaluation)"
+			@echo "  $(BGREEN)test$(RESET)   - Run Automated Bash Tests (Integrity, Edge Cases)"
+			@echo "  $(BGREEN)git$(RESET)    - Add, commit, and push changes to git (Interactive)"
+			@echo "  $(BGREEN)help$(RESET)   - Show this help message"
 
 .PHONY:		all re clean fclean comp run test git

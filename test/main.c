@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 20:30:01 by macarval          #+#    #+#             */
-/*   Updated: 2026/04/17 18:47:32 by macarval         ###   ########.fr       */
+/*   Updated: 2026/04/17 19:23:26 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 void	welcome(void);
 void	goodbye(void);
+void	pause_evaluator(const char	*test_name);
 int		test_1(void);
 int		test_2(void);
 int		test_3(void);
@@ -36,56 +37,72 @@ static void	complex_tests(void)
 {
 	welcome();
 	test_7_tiny();
+	pause_evaluator("Zones SMALL");
 	test_8_small();
+	pause_evaluator("Zones LARGE");
 	test_9_large();
+	pause_evaluator("Edge Cases");
 	test_10_edge_cases();
+	pause_evaluator("Fragmentation & Coalescing");
 	test_11_fragmentation();
-	test_12_overlap();
-	test_13_massive();
+	pause_evaluator("Shrink Coalesce");
 	test_14_shrink_coalesce();
-	test_15_expand_inplace();
 	goodbye();
 }
 
-static int	run_test(int test_id)
+static int	run_part_1(int id)
 {
-	if (test_id == 1)
+	if (id == 1)
 		return (test_1());
-	if (test_id == 2)
+	if (id == 2)
 		return (test_2());
-	if (test_id == 3)
+	if (id == 3)
 		return (test_3());
-	if (test_id == 4)
+	if (id == 4)
 		return (test_4());
-	if (test_id == 5)
+	if (id == 5)
 		return (test_5());
-	if (test_id == 6)
+	if (id == 6)
 		return (test_6());
-	if (test_id == 7)
+	if (id == 7)
 		return (test_7_tiny());
-	if (test_id == 8)
+	if (id == 8)
 		return (test_8_small());
-	if (test_id == 9)
+	return (-1);
+}
+
+static int run_part_2(int id)
+{
+	if (id == 9)
 		return (test_9_large());
-	if (test_id == 10)
+	if (id == 10)
 		return (test_10_edge_cases());
-	if (test_id == 11)
+	if (id == 11)
 		return (test_11_fragmentation());
-	if (test_id == 12)
+	if (id == 12)
 		return (test_12_overlap());
-	if (test_id == 13)
+	if (id == 13)
 		return (test_13_massive());
-	if (test_id == 14)
+	if (id == 14)
 		return (test_14_shrink_coalesce());
-	if (test_id == 15)
+	if (id == 15)
 		return (test_15_expand_inplace());
-	return (0);
+	return (-1);
 }
 
 int	main(int argc, char **argv)
 {
+	int	id;
+	int	res;
+
 	if (argc > 1)
-		return (run_test(ft_atoi(argv[1])));
+	{
+		id = ft_atoi(argv[1]);
+		res = run_part_1(id);
+		if (res != -1)
+			return (res);
+		return (run_part_2(id));
+	}
 	complex_tests();
 	return (0);
 }
