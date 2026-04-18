@@ -16,6 +16,7 @@ void	*realloc(void *ptr, size_t size)
 {
 	t_block	*block;
 	void	*new_ptr;
+	size_t	aligned;
 
 	if (!ptr)
 		return (malloc(size));
@@ -27,24 +28,11 @@ void	*realloc(void *ptr, size_t size)
 	block = find_real_block(ptr);
 	if (!block || block->status == FREE)
 		return (NULL);
-	if (align_size(size) <= block->size)
-	{
-		split_block(block, align_size(size));
-		if (block->next && block->next->status == FREE)
-			coalesce_blocks(block->next);
+	aligned = align_size(size);
+	if (aligned <= block->size)
+		return (shirink_block(block, aligned, ptr));
+	if (expand_block(block, aligned))
 		return (ptr);
-	}
-	if (block->next && block->next->status == FREE
-		&& (block->size + sizeof(t_block) + block->next->size)
-		>= align_size(size))
-	{
-		block->size += sizeof(t_block) + block->next->size;
-		block->next = block->next->next;
-		if (block->next)
-			block->next->prev = block;
-		split_block(block, align_size(size));
-		return (ptr);
-	}
 	new_ptr = malloc(size);
 	if (!new_ptr)
 		return (NULL);

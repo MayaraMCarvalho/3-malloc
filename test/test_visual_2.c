@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 19:05:34 by macarval          #+#    #+#             */
-/*   Updated: 2026/04/17 19:56:10 by macarval         ###   ########.fr       */
+/*   Updated: 2026/04/17 21:02:42 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	test_14_shrink_coalesce(void)
 	a = malloc(128);
 	b = malloc(128);
 	c = malloc(128);
+	ft_printf("\n%s*** SHRINK COALESCE ***%s\n", YELLOW, RESET);
 	if (!a || !b || !c)
 		return (1);
 	ft_printf("Three blocks (A, B, C) have been allocated. ");

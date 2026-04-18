@@ -48,6 +48,7 @@ typedef struct s_malloc
 	t_zone			*small;
 	t_block			*large;
 	pthread_mutex_t	mutex;
+	int				debug_mode;
 }	t_malloc;
 
 extern t_malloc	g_malloc;
@@ -56,6 +57,8 @@ extern t_malloc	g_malloc;
 void	*allocate_block(size_t size);
 void	split_block(t_block *block, size_t size);
 t_block	*coalesce_blocks(t_block *block);
+void	*shirink_block(t_block *block, size_t aligned, void *ptr);
+int		expand_block(t_block *block, size_t aligned);
 
 // find_block.c
 t_block	*find_free_block(size_t size);

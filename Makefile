@@ -6,7 +6,7 @@
 #    By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/19 16:33:22 by macarval          #+#    #+#              #
-#    Updated: 2026/04/17 19:21:54 by macarval         ###   ########.fr        #
+#    Updated: 2026/04/17 21:04:07 by macarval         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ INCLUDE		= -I./include -I$(LIBFT_INC) -I./srcs/utils
 
 # --- Compiler and Flags ---
 CC			= gcc
-CFLAGS		= -g3 -Wall -Wextra -Werror -fPIC -fvisibility=hidden
+CFLAGS		= -g3 -Wall -Wextra -Werror -fPIC -fvisibility=hidden -D_GNU_SOURCE
 LDFLAGS		= -L. -lft_malloc -Wl,-rpath,$(shell pwd)
 
 # --- Test Program Configuration ---
@@ -112,6 +112,7 @@ $(COMP):	$(COMP_SRCS) $(NAME) | $(OBJS_PATH)
 comp:		$(NAME) $(COMP)
 
 run:		comp
+			@clear
 			@echo "$(CYAN)Executing $(COMP) with $(SYMLINK)...$(RESET)"
 			@LD_PRELOAD=./$(SYMLINK) ./$(COMP) || true
 			@echo "$(CYAN)Execution complete.$(RESET)"

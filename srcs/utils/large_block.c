@@ -6,12 +6,15 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 20:08:33 by macarval          #+#    #+#             */
-/*   Updated: 2026/04/14 20:01:28 by macarval         ###   ########.fr       */
+/*   Updated: 2026/04/17 20:48:08 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils_malloc.h"
 
+/// @brief Creates a new large block of memory.
+/// @param size The size of the memory block to be allocated.
+/// @return A pointer to the newly allocated block, or NULL if allocation fails.
 t_block	*create_large_block(size_t size)
 {
 	t_block	*block;
@@ -28,6 +31,8 @@ t_block	*create_large_block(size_t size)
 	return (block);
 }
 
+/// @brief Adds a large block to the linked list of large blocks.
+/// @param block The block to be added.
 void	add_large_block(t_block *block)
 {
 	if (!g_malloc.large)
@@ -40,6 +45,8 @@ void	add_large_block(t_block *block)
 	g_malloc.large = block;
 }
 
+/// @brief Frees a large block of memory.
+/// @param block The block to be freed.
 void	free_large_block(t_block *block)
 {
 	if (!block)

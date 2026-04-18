@@ -12,6 +12,8 @@
 
 #include "utils_malloc.h"
 
+/// @brief Frees a block of memory.
+/// @param ptr A pointer to the memory block to be freed.
 void	free(void *ptr)
 {
 	t_block	*block;

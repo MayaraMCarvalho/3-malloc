@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 20:30:01 by macarval          #+#    #+#             */
-/*   Updated: 2026/04/17 19:23:26 by macarval         ###   ########.fr       */
+/*   Updated: 2026/04/17 20:31:10 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static int	run_part_1(int id)
 	return (-1);
 }
 
-static int run_part_2(int id)
+static int	run_part_2(int id)
 {
 	if (id == 9)
 		return (test_9_large());

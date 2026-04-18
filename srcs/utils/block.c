@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 14:51:50 by macarval          #+#    #+#             */
-/*   Updated: 2026/04/17 19:32:35 by macarval         ###   ########.fr       */
+/*   Updated: 2026/04/17 20:55:54 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,39 @@ t_block	*coalesce_blocks(t_block *block)
 		block = block->prev;
 	}
 	return (block);
+}
+
+/// @brief Shirinks a block of memory.
+/// @param block The block to be shirinked.
+/// @param aligned The aligned size.
+/// @param ptr The pointer to the memory block.
+/// @return A pointer to the shirinked block.
+void	*shirink_block(t_block *block, size_t aligned, void *ptr)
+{
+	split_block(block, aligned);
+	if (block->next && block->next->status == FREE)
+		coalesce_blocks(block);
+	return (ptr);
+}
+
+/// @brief Expands a block of memory if the next block is free and large
+/// enough to hold the additional data.
+/// @param block The block to be expanded.
+/// @param aligned The aligned size of the expanded block.
+/// @return 1 if the block was expanded, 0 otherwise.
+int	expand_block(t_block *block, size_t aligned)
+{
+	size_t	expand;
+
+	if (!block->next || block->next->status == ALLOCATED)
+		return (0);
+	expand = block->size + sizeof(t_block) + block->next->size;
+	if (expand < aligned)
+		return (0);
+	block->size += sizeof(t_block) + block->next->size;
+	block->next = block->next->next;
+	if (block->next)
+		block->next->prev = block;
+	split_block(block, aligned);
+	return (1);
 }

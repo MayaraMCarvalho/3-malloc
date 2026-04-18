@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 14:51:57 by macarval          #+#    #+#             */
-/*   Updated: 2026/04/14 20:02:30 by macarval         ###   ########.fr       */
+/*   Updated: 2026/04/17 20:47:11 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ void	add_zone(t_zone *zone, t_zone **head)
 	zone->prev = current;
 }
 
+/// @brief Handles the case when a zone becomes empty.
+/// @param block The block to be checked.
 void	handle_zone_empty(t_block *block)
 {
 	t_zone	*zone;

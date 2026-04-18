@@ -12,7 +12,13 @@
 
 #include "utils_malloc.h"
 
-t_malloc	g_malloc = {NULL, NULL, NULL, PTHREAD_MUTEX_INITIALIZER};
+t_malloc	g_malloc = {
+	NULL,
+	NULL,
+	NULL,
+	PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP,
+	0
+};
 
 /// @brief Allocates a block of memory of the specified size, first trying to
 /// find a free block in the appropriate zone, and if none is found, requesting
