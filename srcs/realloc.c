@@ -30,7 +30,7 @@ void	*realloc(void *ptr, size_t size)
 		return (NULL);
 	aligned = align_size(size);
 	if (aligned <= block->size)
-		return (shirink_block(block, aligned, ptr));
+		return (shrink_block(block, aligned, ptr));
 	if (expand_block(block, aligned))
 		return (ptr);
 	new_ptr = malloc(size);

@@ -45,7 +45,7 @@ OBJS_PATH	= obj
 
 INCLUDE		=-I./includes
 
-FLAGS		= -Wall -Wextra -Werror -g3
+FLAGS		= -Wall -Wextra -Werror -g3 -fvisibility=hidden
 CC			= gcc
 
 #colors
