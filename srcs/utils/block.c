@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 14:51:50 by macarval          #+#    #+#             */
-/*   Updated: 2026/04/17 20:55:54 by macarval         ###   ########.fr       */
+/*   Updated: 2026/04/17 21:06:52 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,16 +80,16 @@ t_block	*coalesce_blocks(t_block *block)
 	return (block);
 }
 
-/// @brief Shirinks a block of memory.
+/// @brief Shrinks a block of memory.
 /// @param block The block to be shirinked.
 /// @param aligned The aligned size.
 /// @param ptr The pointer to the memory block.
 /// @return A pointer to the shirinked block.
-void	*shirink_block(t_block *block, size_t aligned, void *ptr)
+void	*shrink_block(t_block *block, size_t aligned, void *ptr)
 {
 	split_block(block, aligned);
 	if (block->next && block->next->status == FREE)
-		coalesce_blocks(block);
+		coalesce_blocks(block->next);
 	return (ptr);
 }
 

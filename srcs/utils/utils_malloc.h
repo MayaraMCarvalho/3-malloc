@@ -57,7 +57,7 @@ extern t_malloc	g_malloc;
 void	*allocate_block(size_t size);
 void	split_block(t_block *block, size_t size);
 t_block	*coalesce_blocks(t_block *block);
-void	*shirink_block(t_block *block, size_t aligned, void *ptr);
+void	*shrink_block(t_block *block, size_t aligned, void *ptr);
 int		expand_block(t_block *block, size_t aligned);
 
 // find_block.c
