@@ -14,9 +14,7 @@
 
 void	*realloc(void *ptr, size_t size)
 {
-	t_block	*block;
 	void	*new_ptr;
-	size_t	aligned;
 
 	if (!ptr)
 		return (malloc(size));
@@ -25,18 +23,8 @@ void	*realloc(void *ptr, size_t size)
 		free(ptr);
 		return (NULL);
 	}
-	block = find_real_block(ptr);
-	if (!block || block->status == FREE)
-		return (NULL);
-	aligned = align_size(size);
-	if (aligned <= block->size)
-		return (shrink_block(block, aligned, ptr));
-	if (expand_block(block, aligned))
-		return (ptr);
-	new_ptr = malloc(size);
-	if (!new_ptr)
-		return (NULL);
-	ft_memcpy(new_ptr, ptr, block->size);
-	free(ptr);
+	pthread_mutex_lock(&g_malloc.mutex);
+	new_ptr = process_realloc(ptr, size);
+	pthread_mutex_unlock(&g_malloc.mutex);
 	return (new_ptr);
 }

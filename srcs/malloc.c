@@ -20,21 +20,16 @@ t_malloc	g_malloc = {
 	0
 };
 
-/// @brief Allocates a block of memory of the specified size, first trying to
-/// find a free block in the appropriate zone, and if none is found, requesting
-/// new space from the system.
-/// @param size The requested original size.
-/// @return A pointer to the allocated block, or NULL if allocation fails.
+/// @brief Allocates memory using the standard malloc function if the debug
+/// mode is enabled, otherwise uses the custom memory allocation logic.
+/// @param size The amount of memory to allocate.
+/// @return A pointer to the allocated memory, or NULL if allocation fails.
 void	*malloc(size_t size)
 {
-	size_t			aligned_size;
-	struct rlimit	limit;
+	void	*ptr;
 
-	if (size == 0)
-		return (NULL);
-	aligned_size = align_size(size);
-	if (getrlimit(RLIMIT_AS, &limit) == 0
-		&& limit.rlim_cur != RLIM_INFINITY && aligned_size > limit.rlim_cur)
-		return (NULL);
-	return (allocate_block(aligned_size));
+	pthread_mutex_lock(&g_malloc.mutex);
+	ptr = process_malloc(size);
+	pthread_mutex_unlock(&g_malloc.mutex);
+	return (ptr);
 }

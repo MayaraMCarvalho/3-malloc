@@ -71,6 +71,9 @@ t_block	*create_large_block(size_t size);
 void	add_large_block(t_block *block);
 void	free_large_block(t_block *block);
 
+// page.c
+t_block	*request_space(size_t size);
+
 // zone.c
 t_block	*get_zone(size_t size);
 t_zone	*create_zone(size_t zone_size, t_zone **head);
@@ -79,6 +82,9 @@ void	handle_zone_empty(t_block *block);
 
 // utils.c
 size_t	align_size(size_t size);
-t_block	*request_space(size_t size);
+void	process_free(void *ptr);
+void	*process_malloc(size_t size);
+void	*process_realloc(void *ptr, size_t size);
+void	print_debug(char *message, void *ptr);
 
 #endif

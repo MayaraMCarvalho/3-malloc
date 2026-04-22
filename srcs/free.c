@@ -12,23 +12,12 @@
 
 #include "utils_malloc.h"
 
-/// @brief Frees a block of memory.
+/// @brief Frees a block of memory using the standard free function if debug
+/// mode is enabled, otherwise uses the custom memory freeing logic.
 /// @param ptr A pointer to the memory block to be freed.
 void	free(void *ptr)
 {
-	t_block	*block;
-
-	if (!ptr)
-		return ;
-	if (find_block(g_malloc.large, ptr))
-	{
-		free_large_block((t_block *)ptr - 1);
-		return ;
-	}
-	block = find_real_block(ptr);
-	if (!block || block->status == FREE || block->size == 0)
-		return ;
-	block->status = FREE;
-	block = coalesce_blocks(block);
-	handle_zone_empty(block);
+	pthread_mutex_lock(&g_malloc.mutex);
+	process_free(ptr);
+	pthread_mutex_unlock(&g_malloc.mutex);
 }

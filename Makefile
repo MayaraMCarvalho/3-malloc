@@ -6,7 +6,7 @@
 #    By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/19 16:33:22 by macarval          #+#    #+#              #
-#    Updated: 2026/04/17 21:04:07 by macarval         ###   ########.fr        #
+#    Updated: 2026/04/22 16:21:14 by macarval         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ NAME		= obj/libft_malloc_$(HOSTTYPE).so
 
 # --- Sources and Objects ---
 SRCS		= free.c malloc.c realloc.c show_alloc_mem_ex.c show_alloc_mem.c \
-			block.c find_block.c large_block.c utils.c zone.c
+			block.c find_block.c large_block.c page.c utils.c zone.c
 
 VPATH		= srcs/:srcs/utils/
 OBJS_PATH	= obj
