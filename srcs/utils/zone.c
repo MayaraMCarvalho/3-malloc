@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 14:51:57 by macarval          #+#    #+#             */
-/*   Updated: 2026/04/17 20:47:11 by macarval         ###   ########.fr       */
+/*   Updated: 2026/04/22 15:53:29 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_block	*get_zone(size_t size)
 			return (g_malloc.small->blocks);
 		return (NULL);
 	}
-	return (g_malloc.large);
+	return (NULL);
 }
 
 /// @brief Creates a new memory zone of the specified size and initializes

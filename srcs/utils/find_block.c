@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/12 13:38:28 by macarval          #+#    #+#             */
-/*   Updated: 2026/04/17 20:45:28 by macarval         ###   ########.fr       */
+/*   Updated: 2026/04/22 15:53:00 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,25 @@
 /// is found.
 t_block	*find_free_block(size_t size)
 {
+	t_zone	*zone;
 	t_block	*current;
 
-	current = get_zone(size);
-	while (current)
+	if (size <= TINY_MAX_SIZE)
+		zone = g_malloc.tiny;
+	else if (size <= SMALL_MAX_SIZE)
+		zone = g_malloc.small;
+	else
+		return (NULL);
+	while (zone)
 	{
-		if (current->status == FREE && current->size >= size)
-			return (current);
-		current = current->next;
+		current = zone->blocks;
+		while (current)
+		{
+			if (current->status == FREE && current->size >= size)
+				return (current);
+			current = current->next;
+		}
+		zone = zone->next;
 	}
 	return (NULL);
 }
