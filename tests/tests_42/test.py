@@ -114,7 +114,7 @@ elif pr1 >= 255 and pr1 <= 272:
 # Free
 pr2 = page_reclaims("test2")
 print(Fore.YELLOW + "\n#####Test free" + Style.RESET_ALL)
-print("Page reclaims for test0: " + str(pr0) + " Page reclaims for test2: " + str(pr2))
+print("Page reclaims for test0: " + str(pr0) + "\nPage reclaims for test2: " + str(pr2))
 if pr2 - pr0 <= 3:
     print(
         Fore.GREEN
@@ -145,10 +145,13 @@ cmp_output("test4", "Bonjours\n")
 # show_alloc_mem
 print(Fore.YELLOW + "\n#####Test print_alloc_mem" + Style.RESET_ALL)
 # Adaptado para pegar a biblioteca genérica libft_malloc
-com = f"gcc -o {bin_folder}test5 test5.c {lib_inc}/libft_malloc.so -I {lib_inc}"
+com = f"gcc -o {bin_folder}test5 test5.c ../../libft_malloc.so -I {lib_inc}"
 cmd.call(com.split())
 
 com = "./" + bin_folder + "test5"
 # Para esse último teste não usamos o run_test.sh, roda direto.
 output, errput = cmd_output(com.split())
 print(output.decode("utf-8"))
+
+com = "rm -rf " + bin_folder
+cmd.call(com.split())
