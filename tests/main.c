@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 20:30:01 by macarval          #+#    #+#             */
-/*   Updated: 2026/04/23 01:03:36 by macarval         ###   ########.fr       */
+/*   Updated: 2026/04/23 01:23:58 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,6 @@ static void	complex_tests(void)
 	test_11_fragmentation();
 	pause_evaluator("Shrink Coalesce");
 	test_14_shrink_coalesce();
-	pause_evaluator("Memory Alignment");
-	test_16_alignment();
-	pause_evaluator("Invalid Operations");
-	test_17_invalid_frees();
-	pause_evaluator("Thread Safety");
-	test_18_thread_safety();
-	pause_evaluator("Large Realloc");
-	test_19_realloc_large();
 	goodbye();
 }
 

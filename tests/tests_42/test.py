@@ -70,9 +70,9 @@ for f in test_files:
 pr0 = page_reclaims("test0")
 pr1 = page_reclaims("test1")
 print(Fore.YELLOW + "#####Test malloc" + Style.RESET_ALL)
-print("Number of page reclaim for test1: " + str(pr1))
+print(Fore.LIGHTBLUE_EX + "Number of page reclaim for test1: " + str(pr1) + Style.RESET_ALL)
 print(Fore.YELLOW + "For question1 the result is (out of 5):" + Style.RESET_ALL)
-print(Fore.LIGHTBLUE_EX + "Value pr1: " + str(pr1) + Style.RESET_ALL)
+
 if pr1 < 255:
     print(
         Fore.RED

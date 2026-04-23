@@ -17,12 +17,7 @@
 /// @return The aligned size.
 size_t	align_size(size_t size)
 {
-	size_t	alignment;
-
-	alignment = 16;
-	if (size % alignment == 0)
-		return (size);
-	return (((size / alignment) + 1) * alignment);
+	return ((size + 15) & ~15);
 }
 
 /// @brief Processes the freeing of a memory block, handling large blocks
