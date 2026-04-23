@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 18:54:19 by macarval          #+#    #+#             */
-/*   Updated: 2026/04/23 11:19:26 by macarval         ###   ########.fr       */
+/*   Updated: 2026/04/23 16:12:31 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ static void	print_zones_ex(t_zone *zone, char *zone_name)
 /// @param void No parameters.
 void	show_alloc_mem_ex(void)
 {
+	pthread_mutex_lock(&g_malloc.mutex);
 	ft_printf("\n%s=== DETAILED MEMORY DUMP ===%s\n", PURPLE, RESET);
 	print_zones_ex(g_malloc.tiny, "TINY");
 	print_zones_ex(g_malloc.small, "SMALL");
@@ -106,4 +107,5 @@ void	show_alloc_mem_ex(void)
 		print_blocks_ex(g_malloc.large);
 	}
 	ft_printf("%s=================================%s\n\n", PURPLE, RESET);
+	pthread_mutex_lock(&g_malloc.mutex);
 }

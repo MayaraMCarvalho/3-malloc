@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 20:23:20 by macarval          #+#    #+#             */
-/*   Updated: 2026/04/23 10:43:40 by macarval         ###   ########.fr       */
+/*   Updated: 2026/04/23 16:12:11 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,9 @@ void	show_alloc_mem(void)
 {
 	int	total_size;
 
+
 	total_size = 0;
+	pthread_mutex_lock(&g_malloc.mutex);
 	total_size += print_zones(g_malloc.tiny, "TINY");
 	total_size += print_zones(g_malloc.small, "SMALL");
 	if (g_malloc.large)
@@ -81,4 +83,5 @@ void	show_alloc_mem(void)
 		total_size += print_blocks(g_malloc.large);
 	}
 	ft_printf("\nTotal : %d bytes\n", total_size);
+	pthread_mutex_unlock(&g_malloc.mutex);
 }
