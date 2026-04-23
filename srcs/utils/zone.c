@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 14:51:57 by macarval          #+#    #+#             */
-/*   Updated: 2026/04/23 11:38:20 by macarval         ###   ########.fr       */
+/*   Updated: 2026/04/23 15:56:31 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ t_block	*get_zone(size_t size)
 	return (NULL);
 }
 
+/// @brief Retrieves the zone that contains the given block.
+/// @param block The block to find the zone of.
+/// @return A pointer to the zone containing the block, or NULL if not found.
 t_zone	*get_zone_of_block(t_block *block)
 {
 	t_zone	*zone;

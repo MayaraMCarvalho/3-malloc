@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:24:48 by macarval          #+#    #+#             */
-/*   Updated: 2026/04/23 15:28:35 by macarval         ###   ########.fr       */
+/*   Updated: 2026/04/23 15:56:57 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,10 @@ void	*process_malloc(size_t size)
 	return (ptr);
 }
 
+/// @brief Reallocates memory using the custom memory allocation logic.
+/// @param ptr A pointer to the memory block to be reallocated.
+/// @param size The amount of memory to reallocate.
+/// @return A pointer to the reallocated memory, or NULL if allocation fails.
 void	*process_realloc(void *ptr, size_t size)
 {
 	t_block	*block;

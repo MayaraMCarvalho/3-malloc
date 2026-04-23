@@ -12,6 +12,10 @@
 
 #include "utils_malloc.h"
 
+/// @brief Reallocates memory using the custom memory allocation logic.
+/// @param ptr A pointer to the memory block to be reallocated.
+/// @param size The amount of memory to reallocate.
+/// @return A pointer to the reallocated memory, or NULL if allocation fails.
 void	*realloc(void *ptr, size_t size)
 {
 	void	*new_ptr;
