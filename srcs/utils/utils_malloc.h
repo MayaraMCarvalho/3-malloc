@@ -24,6 +24,10 @@
 # define TINY_ZONE		4
 # define SMALL_ZONE		26
 
+# ifndef MAP_ANONYMOUS
+#  define MAP_ANONYMOUS MAP_ANON
+# endif
+
 typedef struct s_block
 {
 	size_t			size;

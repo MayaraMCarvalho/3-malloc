@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 14:06:29 by macarval          #+#    #+#             */
-/*   Updated: 2026/04/22 15:55:45 by macarval         ###   ########.fr       */
+/*   Updated: 2026/04/23 15:49:12 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,12 +106,12 @@ int	test_11_fragmentation(void)
 	void	*b;
 	void	*c;
 
-	ft_printf("-> 3 blocks allocated.\n");
 	a = malloc(128);
 	b = malloc(128);
 	c = malloc(128);
 	ft_printf("\n%s*** FRAGMENTATION AND COALESCING TEST ***%s\n",
 		YELLOW, RESET);
+	ft_printf("-> 3 blocks allocated.\n");
 	show_alloc_mem_ex();
 	ft_printf("-> Freeing the ends (A and C)...\n");
 	free(a);

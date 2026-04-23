@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/23 14:24:48 by macarval          #+#    #+#             */
-/*   Updated: 2026/04/23 14:43:35 by macarval         ###   ########.fr       */
+/*   Updated: 2026/04/23 15:28:35 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ static size_t	get_system_limit(void)
 
 	if (limit == 0)
 	{
-		if (getrlimit(RLIMIT_AS, &rpl) == 0 && rpl.rlim_cur != RLIM_INFINITY)
+		if (getrlimit(RLIMIT_AS, &rpl) == 0
+			&& rpl.rlim_cur != (rlim_t)RLIM_INFINITY)
 			limit = rpl.rlim_cur;
 		else
 			limit = (size_t) - 1;
