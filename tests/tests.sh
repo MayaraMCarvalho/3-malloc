@@ -46,6 +46,10 @@ declare -a descriptions=(
 	"System: Massive Allocation (rlimit check)"
 	"Visual: Coalesce on shrink"
 	"Logic: In-Place expand"
+	"Memory: Alignment check (16-byte)"
+	"Critical: Invalid operations (free/realloc)"
+	"Critical: Thread safety (Mutex check)"
+	"Performance: Large realloc (mmap check)"
 )
 
 clear
@@ -102,9 +106,6 @@ done
 echo -e "${blue}\n-------------------------------------------------------------------------"
 echo -e "Tests finished..."
 echo -e "-------------------------------------------------------------------------${reset}"
-
-make fclean > /dev/null 2>&1
-echo -e "${green}Cleanup completed.${reset}"
 
 # Calculate percentage of hits
 if [ $total_tests -gt 0 ]; then

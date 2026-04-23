@@ -6,7 +6,7 @@
 #    By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/19 16:33:22 by macarval          #+#    #+#              #
-#    Updated: 2026/04/22 16:21:14 by macarval         ###   ########.fr        #
+#    Updated: 2026/04/23 00:43:42 by macarval         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,14 +36,16 @@ INCLUDE		= -I./include -I$(LIBFT_INC) -I./srcs/utils
 
 # --- Compiler and Flags ---
 CC			= gcc
-CFLAGS		= -g3 -Wall -Wextra -Werror -fPIC -fvisibility=hidden -D_GNU_SOURCE
+CFLAGS		= -O3 -Wall -Wextra -Werror -fPIC -fvisibility=hidden \
+			-D_GNU_SOURCE -pthread
 LDFLAGS		= -L. -lft_malloc -Wl,-rpath,$(shell pwd)
 
 # --- Test Program Configuration ---
-COMP_PATH	= test
+COMP_PATH	= tests
 COMP_SRCS	= $(COMP_PATH)/main.c $(COMP_PATH)/info.c \
 			$(COMP_PATH)/test_automated_1.c \
 			$(COMP_PATH)/test_automated_2.c \
+			$(COMP_PATH)/test_automated_3.c \
 			$(COMP_PATH)/test_visual_1.c \
 			$(COMP_PATH)/test_visual_2.c
 COMP		= $(OBJS_PATH)/test_malloc
@@ -117,9 +119,13 @@ run:		comp
 			@LD_PRELOAD=./$(SYMLINK) ./$(COMP) || true
 			@echo "$(CYAN)Execution complete.$(RESET)"
 
-test:		comp
+tests:		comp
 			@echo "$(CYAN)Running tests...$(RESET)"
 			@./$(COMP_PATH)/tests.sh
+			@echo "\n$(CYAN)Running tests 42...$(RESET)"
+			@python3 $(COMP_PATH)/tests_42/test.py
+			@$(MAKE) fclean > /dev/null 2>&1
+			@echo -e "${green}Cleanup completed.${reset}"
 
 git:
 			clear
@@ -161,8 +167,8 @@ help:
 			@echo "  $(BGREEN)fclean$(RESET) - Remove object files and library"
 			@echo "  $(BGREEN)comp$(RESET)   - Compile the test program"
 			@echo "  $(BGREEN)run$(RESET)    - Run Visual Presentation Mode (Step-by-step memory evaluation)"
-			@echo "  $(BGREEN)test$(RESET)   - Run Automated Bash Tests (Integrity, Edge Cases)"
+			@echo "  $(BGREEN)tests$(RESET)  - Run Automated Bash Tests (Integrity, Edge Cases)"
 			@echo "  $(BGREEN)git$(RESET)    - Add, commit, and push changes to git (Interactive)"
 			@echo "  $(BGREEN)help$(RESET)   - Show this help message"
 
-.PHONY:		all re clean fclean comp run test git
+.PHONY:		all re clean fclean comp run tests git

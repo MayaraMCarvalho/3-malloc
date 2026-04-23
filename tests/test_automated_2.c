@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/17 14:06:29 by macarval          #+#    #+#             */
-/*   Updated: 2026/04/17 19:07:10 by macarval         ###   ########.fr       */
+/*   Updated: 2026/04/23 01:03:11 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,30 @@ int	test_15_expand_inplace(void)
 		return (1);
 	free(a);
 	free(c);
+	return (0);
+}
+
+int	test_16_alignment(void)
+{
+	void	*ptrs[5];
+	int		sizes[5];
+	int		i;
+
+	i = 0;
+	sizes[0] = 1;
+	sizes[1] = 5;
+	sizes[2] = 17;
+	sizes[3] = 129;
+	sizes[4] = 1025;
+	while (i < 5)
+	{
+		ptrs[i] = malloc(sizes[i]);
+		if (!ptrs[i] || ((size_t)ptrs[i] % 16) != 0)
+			return (1);
+		i++;
+	}
+	i = 0;
+	while (i < 5)
+		free(ptrs[i++]);
 	return (0);
 }
