@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/12 13:38:28 by macarval          #+#    #+#             */
-/*   Updated: 2026/04/22 15:53:00 by macarval         ###   ########.fr       */
+/*   Updated: 2026/04/23 10:45:09 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_block	*find_free_block(size_t size)
 		current = zone->blocks;
 		while (current)
 		{
-			if (current->status == FREE && current->size >= size)
+			if (is_free(current) && get_real_size(current) >= size)
 				return (current);
 			current = current->next;
 		}

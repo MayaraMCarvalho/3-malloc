@@ -19,8 +19,6 @@
 # include "libft.h"
 # include "colors.h"
 
-# define FREE			0
-# define ALLOCATED		1
 # define TINY_MAX_SIZE	128
 # define SMALL_MAX_SIZE	1024
 # define TINY_ZONE		4
@@ -29,8 +27,6 @@
 typedef struct s_block
 {
 	size_t			size;
-	int				status;
-	struct s_block	*prev;
 	struct s_block	*next;
 }	t_block;
 
@@ -56,7 +52,7 @@ extern t_malloc	g_malloc;
 // block.c
 void	*allocate_block(size_t size);
 void	split_block(t_block *block, size_t size);
-t_block	*coalesce_blocks(t_block *block);
+void	coalesce_zone(t_zone	*zone);
 void	*shrink_block(t_block *block, size_t aligned, void *ptr);
 int		expand_block(t_block *block, size_t aligned);
 
@@ -74,17 +70,26 @@ void	free_large_block(t_block *block);
 // page.c
 t_block	*request_space(size_t size);
 
-// zone.c
-t_block	*get_zone(size_t size);
-t_zone	*create_zone(size_t zone_size, t_zone **head);
-void	add_zone(t_zone *zone, t_zone **head);
-void	handle_zone_empty(t_block *block);
-
-// utils.c
-size_t	align_size(size_t size);
+// process.c
 void	process_free(void *ptr);
 void	*process_malloc(size_t size);
 void	*process_realloc(void *ptr, size_t size);
+
+// status.c
+size_t	get_real_size(t_block *block);
+int		is_free(t_block *block);
+void	set_free(t_block *block);
+void	set_allocated(t_block *block);
+
+// utils.c
+size_t	align_size(size_t size);
 void	print_debug(char *message, void *ptr);
+
+// zone.c
+t_block	*get_zone(size_t size);
+t_zone	*get_zone_of_block(t_block *block);
+t_zone	*create_zone(size_t zone_size, t_zone **head);
+void	add_zone(t_zone *zone, t_zone **head);
+void	handle_zone_empty(t_zone *zone, t_block *block);
 
 #endif

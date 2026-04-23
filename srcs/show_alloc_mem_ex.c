@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/14 18:54:19 by macarval          #+#    #+#             */
-/*   Updated: 2026/04/22 16:18:46 by macarval         ###   ########.fr       */
+/*   Updated: 2026/04/23 11:19:26 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,22 +49,23 @@ static void	print_blocks_ex(t_block *blocks)
 	current = blocks;
 	while (current)
 	{
-		if (current->status == ALLOCATED)
+		if (!is_free(current))
 		{
 			ft_printf("%s[ALLOCATED]%s %p - %p : %u bytes\n",
 				GREEN, RESET,
 				(void *)(current + 1),
-				(void *)((char *)(current + 1) + current->size),
-				(unsigned int)current->size);
-			print_hexdump((unsigned char *)(current + 1), current->size);
+				(void *)((char *)(current + 1) + get_real_size(current)),
+				(unsigned int)get_real_size(current));
+			print_hexdump((unsigned char *)(current + 1),
+				get_real_size(current));
 		}
 		else
 		{
 			ft_printf("%s[FREE]     %s %p - %p : %u bytes\n",
 				RED, RESET,
 				(void *)(current + 1),
-				(void *)((char *)(current + 1) + current->size),
-				(unsigned int)current->size);
+				(void *)((char *)(current + 1) + get_real_size(current)),
+				(unsigned int)get_real_size(current));
 		}
 		current = current->next;
 	}

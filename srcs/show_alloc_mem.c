@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 20:23:20 by macarval          #+#    #+#             */
-/*   Updated: 2026/04/22 16:12:27 by macarval         ###   ########.fr       */
+/*   Updated: 2026/04/23 10:43:40 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ static int	print_blocks(t_block *blocks)
 	current = blocks;
 	while (current)
 	{
-		if (current->status == ALLOCATED)
+		if (!is_free(current))
 		{
 			ft_printf("%p - %p : %u bytes\n",
 				(void *)(current + 1),
-				(void *)((char *)(current + 1) + current->size),
-				(unsigned int)current->size);
-			total_size += current->size;
+				(void *)((char *)(current + 1) + get_real_size(current)),
+				(unsigned int)get_real_size(current));
+			total_size += get_real_size(current);
 		}
 		current = current->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/11 20:08:33 by macarval          #+#    #+#             */
-/*   Updated: 2026/04/17 20:48:08 by macarval         ###   ########.fr       */
+/*   Updated: 2026/04/23 14:31:09 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,8 @@ t_block	*create_large_block(size_t size)
 	if (block == MAP_FAILED)
 		return (NULL);
 	block->size = size;
-	block->status = ALLOCATED;
+	set_allocated(block);
 	block->next = NULL;
-	block->prev = NULL;
 	add_large_block(block);
 	return (block);
 }
@@ -35,13 +34,7 @@ t_block	*create_large_block(size_t size)
 /// @param block The block to be added.
 void	add_large_block(t_block *block)
 {
-	if (!g_malloc.large)
-	{
-		g_malloc.large = block;
-		return ;
-	}
 	block->next = g_malloc.large;
-	g_malloc.large->prev = block;
 	g_malloc.large = block;
 }
 
@@ -49,13 +42,22 @@ void	add_large_block(t_block *block)
 /// @param block The block to be freed.
 void	free_large_block(t_block *block)
 {
+	t_block	*tmp;
+
 	if (!block)
 		return ;
-	if (block->prev)
-		block->prev->next = block->next;
-	if (block->next)
-		block->next->prev = block->prev;
-	if (block->prev == NULL)
+	if (g_malloc.large == block)
 		g_malloc.large = block->next;
-	munmap((void *)block, block->size + sizeof(t_block));
+	else
+	{
+		tmp = g_malloc.large;
+		while (tmp && tmp->next != block)
+			tmp = tmp->next;
+		if (tmp)
+			tmp->next = block->next;
+	}
+	munmap((void *)block, get_real_size(block) + sizeof(t_block));
+	if (g_malloc.debug_mode)
+		print_debug("free completed successfully! (Large)", (void *)block
+			+ sizeof(t_block));
 }
