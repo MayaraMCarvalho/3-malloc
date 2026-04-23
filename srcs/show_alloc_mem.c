@@ -6,7 +6,7 @@
 /*   By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/17 20:23:20 by macarval          #+#    #+#             */
-/*   Updated: 2026/04/23 16:12:11 by macarval         ###   ########.fr       */
+/*   Updated: 2026/04/23 16:17:56 by macarval         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ static int	print_zones(t_zone *zone, char *zone_name)
 void	show_alloc_mem(void)
 {
 	int	total_size;
-
 
 	total_size = 0;
 	pthread_mutex_lock(&g_malloc.mutex);
