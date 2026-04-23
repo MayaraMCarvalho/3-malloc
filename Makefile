@@ -6,7 +6,7 @@
 #    By: macarval <macarval@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/19 16:33:22 by macarval          #+#    #+#              #
-#    Updated: 2026/04/23 01:32:46 by macarval         ###   ########.fr        #
+#    Updated: 2026/04/23 01:36:33 by macarval         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,8 +36,8 @@ INCLUDE		= -I./include -I$(LIBFT_INC) -I./srcs/utils
 
 # --- Compiler and Flags ---
 CC			= gcc
-CFLAGS		= -g3 -Wall -Wextra -Werror -fPIC -fvisibility=hidden \
-			-D_GNU_SOURCE -pthread
+CFLAGS		= -O3 -Wall -Wextra -Werror -fPIC -fvisibility=hidden \
+			-D_GNU_SOURCE -pthread -fno-builtin -fno-strict-aliasing
 LDFLAGS		= -L. -lft_malloc -Wl,-rpath,$(shell pwd)
 
 # --- Test Program Configuration ---
